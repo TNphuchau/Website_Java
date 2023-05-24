@@ -111,7 +111,24 @@ public class AdminController {
 		}
 	}
 
-
+	@GetMapping("/listAccount")
+	public String ListAccountView(Model model) {
+		User admin = (User) session.getAttribute("admin");
+		if (admin == null) {
+			return "redirect:/loginAdmin";
+		} else {
+			return "listAccount";
+		}
+	}
+	@GetMapping("/editAccount")
+	public String AddAccountView(Model model) {
+		User admin = (User) session.getAttribute("admin");
+		if (admin == null) {
+			return "redirect:/loginAdmin";
+		} else {
+			return "editAccount";
+		}
+	}
 
 	@GetMapping("/listCategory")
 	public String ListCategoryView(Model model) {
@@ -137,7 +154,6 @@ public class AdminController {
 			return "addCategory";
 		}
 	}
-
 	@PostMapping("/addCategory")
 	public String AddCategoryHandle(Model model, @ModelAttribute("category_name") String category_name) {
 		User admin = (User) session.getAttribute("admin");

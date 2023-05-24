@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Page</title>
+    <link rel="stylesheet" th:href="@{/admin/style.css}">
+    <link rel="stylesheet" th:href="@{/admin/product.css}">
+    <link rel="stylesheet" th:href="@{/admin/main-color.css}">
+    <link th:href="@{/fontawesome/css/all.css}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div class="container-scroller">
+    <div th:replace="admin/menu::menu-section"></div>
+
+    <section id="content">
+        <div th:replace="admin/header::header-nav"></div>
+        <main>
+            <section class="content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Danh sách tài khoản</h3>
+                        <div class="card-tools">
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tài khoản</th>
+                                <th>Họ tên</th>
+                                <th>Email</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <a th:href="editAccount" class="btn btn-sm btn-outline-primary">Sửa</a>
+                                    <a th:href="deleteAccount" class="btn btn-sm btn-outline-danger btnDelete">Xoá</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                </div>
+            </section>
+        </main>
+    </section>
+</div>
+<script th:src="@{/admin/script.js}"></script>
+<script th:src="@{/fontawesome/js/all.min.js}"></script>
+</body>
+</html>
+
+
