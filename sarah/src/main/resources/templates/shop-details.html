@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Sarah</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Sarah Cosmetic">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/bootstrap4/bootstrap.min.css}">
+	<link th:href="@{/web/plugins/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/animate.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/single_styles.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/single_responsive.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/web.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/hau.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/flexCard.css}">
+</head>
+
+<body>
+
+<div class="super_container">
+	<!-- Header -->
+	<div th:replace="web/header :: header-web"></div>
+	<div class="fs_menu_overlay"></div>
+	<script th:if="${session.AddToCartErr != null}">
+		swal("Lỗi", "Vui lòng đăng nhập trước khi thực hiện thao tác!", "error");
+	</script>
+	<p th:if="${session.AddToCartErr != null}"
+	   th:text="${#session.setAttribute('AddToCartErr', null)}"
+	   style="display: none;"></p>
+	<div class="container product_section_container">
+		<div class="row">
+			<div class="col product_section clearfix">
+				<!-- Breadcrumbs -->
+				<div class="breadcrumbs d-flex flex-row align-items-center">
+					<ul>
+						<li><a href="home">Home</a></li>
+						<li><i class="fa fa-angle-right" aria-hidden="true"></i><a href="shop">Shop</a></li>
+						<li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Detail</a></li>
+					</ul>
+				</div>
+				<!-- Shop Details Section Begin -->
+				<section class="shop-details">
+					<div class="product__details__pic">
+						<div class="container">
+
+							<div class="row">
+								<div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+									<div class="single_product_thumbnails">
+										<ul>
+											<th:block th:if="${yStat.index == 0}" th:each="y : ${product.productImage}">
+												<li class="active">
+													<a th:href="'#tabs-'+${yStat.index + 1}" >
+														<img th:src="${y.url_Image}" alt="" >
+													</a>
+												</li>
+											</th:block>
+											<th:block th:if="${yStat.index != 0}" th:each="y : ${product.productImage}">
+												<li class="active">
+													<a th:href="'#tabs-'+${yStat.index + 1}">
+														<img th:src="${y.url_Image}" alt="" >
+													</a>
+												</li>
+											</th:block>
+										</ul>
+									</div>
+								</div>
+								<div class="col-lg-9 image_col order-lg-2 order-1">
+									<div class="single_product_image">
+										<th:block th:each="y : ${product.productImage}">
+											<div class="single_product_image_background" th:if="${yStat.index == 0}" th:id="'tabs-'+${yStat.index + 1}">
+												<img th:src="${y.url_Image}" alt="">
+											</div>
+											<div  class="single_product_image_background" th:if="${yStat.index != 0}" th:id="'tabs-'+${yStat.index + 1}">
+												<img th:src="${y.url_Image}" alt="">
+											</div>
+										</th:block>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+							<div class="col-lg-5">
+								<div class="product_details">
+									<div class="product_details_title">
+										<h2 th:text="${product.product_Name}"></h2>
+										<p th:text="${product.description}"></p>
+									</div>
+									<div class="original_price" th:text="${product.price}+' VNĐ'"></div>
+									<div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+										<span>Quantity:</span>
+										<div class="quantity_selector">
+											<span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+											<span id="quantity_value">1</span>
+											<span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+										</div>
+										<form action="/addToCart" method="post">
+											<div class="red_button add_to_cart_button"><a th:value="${product.id}" class="btnAddToCart">Thêm vào giỏ hàng</a></div>
+										</form>
+										<div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+									</div>
+								</div>
+							</div>
+<!--							<div class="row">-->
+<!--								<div class="col-lg-12">-->
+<!--									<div class="product__details__tab">-->
+<!--										<ul class="nav nav-tabs" role="tablist">-->
+<!--											<li class="nav-item"><a class="nav-link active"-->
+<!--																	data-toggle="tab" href="#tabs-5" role="tab">Description</a></li>-->
+<!--											<li class="nav-item"><a class="nav-link" data-toggle="tab"-->
+<!--																	href="#tabs-6" role="tab">Customer Previews(5)</a></li>-->
+<!--											<li class="nav-item"><a class="nav-link" data-toggle="tab"-->
+<!--																	href="#tabs-7" role="tab">Additional information</a></li>-->
+<!--										</ul>-->
+<!--										<div class="tab-content">-->
+<!--											<div class="tab-pane active" id="tabs-5" role="tabpanel">-->
+<!--												<div class="product__details__tab__content">-->
+
+<!--												</div>-->
+<!--											</div>-->
+<!--											<div class="tab-pane" id="tabs-6" role="tabpanel">-->
+<!--												<div class="product__details__tab__content">-->
+<!--													<div class="product__details__tab__content__item">-->
+
+<!--												</div>-->
+<!--											</div>-->
+<!--											<div class="tab-pane" id="tabs-7" role="tabpanel">-->
+<!--												<div class="product__details__tab__content">-->
+
+<!--												</div>-->
+<!--											</div>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					</div>-->
+				</section>
+			</div>
+		</div>
+	</div>
+
+	<!-- Related Section Begin -->
+	<section class="related spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<h3 class="related-title">Một số sản phẩm gợi ý</h3>
+				</div>
+			</div>
+			<div class="row">
+				<th:block th:each="y : ${relatedProduct}">
+					<div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+						<div class="product__item">
+							<div class="product__item__pic set-bg"
+								 th:data-setbg="${y.productImage[0].url_Image}">
+								<span class="label">New</span>
+								<ul class="product__hover">
+									<li><a href="#"><img src="/img/icon/heart.png" alt=""></a></li>
+									<li><a href="#"><img src="/img/icon/compare.png"
+														 alt=""> <span>Compare</span></a></li>
+									<li><a th:href="@{/productDetail/{id}(id=${y.id})}"><img
+											src="/img/icon/search.png" alt=""></a></li>
+								</ul>
+							</div>
+							<div class="product__item__text">
+								<h6 th:text="${y.product_Name}"></h6>
+								<a th:href="@{/addToCart/{id}(id=${y.id})}" class="add-cart">+
+									Add To Cart</a>
+								<div class="rating">
+									<i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i
+										class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i
+										class="fa fa-star-o"></i>
+								</div>
+								<h5
+										th:text=" ${#numbers.formatDecimal(y.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></h5>
+								<div class="product__color__select">
+									<label for="pc-1"> <input type="radio" id="pc-1">
+									</label> <label class="active black" for="pc-2"> <input
+										type="radio" id="pc-2">
+								</label> <label class="grey" for="pc-3"> <input type="radio"
+																				id="pc-3">
+								</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</th:block>
+			</div>
+		</div>
+	</section>
+
+
+	<div th:replace="web/footer::footer-web"></div>
+</div>
+</body>
+<!--Click ảnh người dùng-->
+<script>
+	const profile = document.querySelector('nav .profile');
+	const imgProfile = profile.querySelector('img');
+	const dropdownProfile = profile.querySelector('.profile-link');
+
+	imgProfile.addEventListener('click', function() {
+		dropdownProfile.classList.toggle('show');
+	})
+</script>
+<script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/web/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/web/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/web/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/web/plugins/easing/easing.js}"></script>
+<script th:src="@{/web/js/custom.js}"></script>
+<script th:src="@{/web/js/web.js}"></script>
+</html>

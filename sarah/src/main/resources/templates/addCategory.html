@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Admin Page</title>
+  <link rel="stylesheet" th:href="@{/admin/style.css}">
+  <link rel="stylesheet" th:href="@{/admin/product.css}">
+  <link rel="stylesheet" th:href="@{/admin/main-color.css}">
+  <link th:href="@{/fontawesome/css/all.css}" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+
+  </style>
+</head>
+<body>
+
+<div class="container-scroller">
+  <div th:replace="admin/menu::menu-section"></div>
+
+  <section id="content">
+    <div th:replace="admin/header::header-nav"></div>
+    <main>
+      <section class="content">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Thông tin thêm mới danh mục</h3>
+          </div>
+          <div class="card-body">
+            <div class="bs-stepper-content">
+              <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                <form action="/addCategory" method="post">
+                  <div class="form-group">
+                    <label for="category_name">Tên danh mục</label>
+                    <input type="text" id="category_name" name="category_name" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <a href="listCategory" class="btn btn-danger">Quay lại</a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+</div>
+<script th:src="@{/admin/script.js}"></script>
+<script th:src="@{/fontawesome/js/all.min.js}"></script>
+</body>
+</html>
+
+

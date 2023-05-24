@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Sarah</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Sarah Cosmetic">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/bootstrap4/bootstrap.min.css}">
+	<link th:href="@{/web/plugins/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/animate.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/categories_styles.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/responsive.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/web.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/hau.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/flexCard.css}">
+</head>
+
+<body>
+
+<div class="super_container">
+	<!-- Header -->
+	<div th:replace="web/header :: header-web"></div>
+	<div class="fs_menu_overlay"></div>
+	<div class="container product_section_container">
+		<div class="row">
+			<div class="col product_section clearfix">
+				<!-- Breadcrumbs -->
+				<div class="breadcrumbs d-flex flex-row align-items-center">
+					<ul>
+						<li><a href="home">Home</a></li>
+						<li class="active"><a href="cart"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+					</ul>
+				</div>
+				<!-- Breadcrumb Section End -->
+
+				<!-- Shopping Cart Section Begin -->
+				<section class="checkout spad">
+					<div class="container">
+						<div class="checkout__form">
+							<form action="checkout" method="post">
+								<div class="row">
+									<div class="col-lg-8 col-md-6">
+<!--										<h6 class="coupon__code">-->
+<!--											<span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click-->
+<!--											here</a> to enter your code-->
+<!--										</h6>-->
+										<h6 class="checkout__title">Chi tiết đơn hàng</h6>
+										<div class="checkout__input">
+											<p>
+												Họ tên đầy đủ<span>*</span>
+											</p>
+											<input name="fullname" type="text"
+												   th:value="${session.acc.user_Name}">
+										</div>
+<!--										<div class="checkout__input">-->
+<!--											<p>-->
+<!--												Country<span>*</span>-->
+<!--											</p>-->
+<!--											<input name="country" type="text" placeholder="Country">-->
+<!--										</div>-->
+										<div class="checkout__input">
+											<p>
+												Địa chỉ<span>*</span>
+											</p>
+											<input name="address" type="text" placeholder="Address"
+												   class="checkout__input__add">
+										</div>
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="checkout__input">
+													<p>
+														Số điện thoại<span>*</span>
+													</p>
+													<input name="phone" type="text"
+														   th:value="${session.acc.phone_Number}">
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="checkout__input">
+													<p>
+														Email<span>*</span>
+													</p>
+													<input name="email" type="text"
+														   th:value="${session.acc.email}">
+												</div>
+											</div>
+										</div>
+										<div class="checkout__input">
+											<p>
+												Thông tin cần lưu ý<span>*</span>
+											</p>
+											<input name="note" type="text"
+												   placeholder="Ghi chú về đơn đặt hàng của bạn, ví dụ: ghi chú đặc biệt việc giao hàng.">
+										</div>
+									</div>
+									<div class="col-lg-4 col-md-6">
+										<div class="checkout__order">
+											<h4 class="order__title">Đơn hàng của bạn</h4>
+											<div class="checkout__order__products">
+												Sản phẩm <span>Giá tiền</span>
+											</div>
+											<ul class="checkout__total__products">
+												<th:block th:if="${yStat.index < 10}" th:each="y : ${listCart}">
+													<div>
+														<li
+																th:text="'0'+ ${yStat.index +1} + '. ' + ${y.product.product_Name}"></li>
+														<span th:text="${#numbers.formatDecimal(y.product.price * y.count, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+													</div>
+
+												</th:block>
+												<th:block th:if="${yStat.index >= 10}"
+														  th:each="y : ${listCart}">
+													<li
+															th:text="${yStat.index +1} + '. ' + ${y.product.product_Name}"><span
+															th:text="${#numbers.formatDecimal(y.product.price * y.count, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span></li>
+												</th:block>
+											</ul>
+											<ul class="checkout__total__all">
+												<li>Tổng tiền <span th:text="${#numbers.formatDecimal(Total, 0, 'COMMA', 0, 'POINT')}"></span></li>
+											</ul>
+											<div class="checkout__input__checkbox">
+												<label for="payment"> Thanh toán khi nhận hàng
+													<input name="payOndelivery" type="checkbox" id="payment" onclick="uncheckOther(this, 'paypal')">
+													<span class="checkmark"></span>
+												</label>
+											</div>
+											<div class="checkout__input__checkbox">
+												<label for="paypal"> Thanh toán với momo
+													<input name="payWithMomo" type="checkbox" id="paypal" onclick="uncheckOther(this, 'payment')">
+													<span class="checkmark"></span>
+												</label>
+											</div>
+											<button type="submit" class="site-btn">Đặt hàng</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</section>
+				<!-- Checkout Section End -->
+
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="web/footer::footer-web"></div>
+</div>
+</body>
+<!--Click ảnh người dùng-->
+<script>
+	const profile = document.querySelector('nav .profile');
+	const imgProfile = profile.querySelector('img');
+	const dropdownProfile = profile.querySelector('.profile-link');
+
+	imgProfile.addEventListener('click', function() {
+		dropdownProfile.classList.toggle('show');
+	})
+</script>
+<!--Chỉ cho chọn thanh toán 1 trong 2-->
+<script>
+function uncheckOther(checkbox, otherCheckboxId) {
+  var otherCheckbox = document.getElementById(otherCheckboxId);
+  if (checkbox.checked) {
+    otherCheckbox.checked = false;
+  }
+}
+</script>
+<script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/web/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/web/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/web/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/web/plugins/easing/easing.js}"></script>
+<script th:src="@{/web/js/custom.js}"></script>
+<script th:src="@{/web/js/web.js}"></script>
+</html>

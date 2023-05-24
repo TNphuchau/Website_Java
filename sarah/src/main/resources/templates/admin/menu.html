@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link th:href="@{/fontawesome/css/all.css}" rel="stylesheet">
+	<script th:src="@{/fontawesome/js/all.min.js}"></script>
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+<!-- SIDEBAR -->
+<section id="sidebar" th:fragment="menu-section">
+	<a href="#" class="brand"  style="text-decoration:none;"><i class='bx bxs-chart icon'></i>&emsp;Sarah</a>
+	<ul class="side-menu">
+		<li class="divider" data-text="Nhân viên">Nhân viên</li>
+		<li><a href="/homeAdmin"  style="text-decoration:none;">&emsp;<i class='fas fa-house-damage' ></i>&emsp;Trang chủ</a></li>
+		<li>
+			<a style="text-decoration:none;">&emsp;<i class='fas fa-cubes' ></i>&emsp; Quản lý sản phẩm</a>
+			<ul class="side-dropdown">
+				<li><a th:href="@{/listProduct}"  style="text-decoration:none;"><i class='fas fa-tags' ></i>&emsp; Sản phẩm</a></li>
+				<li><a th:href="@{/addProduct}"  style="text-decoration:none;"><i class='fas fa-plus-circle' ></i>&emsp; Thêm sản phẩm</a></li>
+			</ul>
+		</li>
+		<li><a th:href="@{/orderAdmin}"  style="text-decoration:none;">&emsp;<i class='fas fa-shopping-basket' ></i>&emsp;Đơn hàng</a></li>
+		<li class="divider" data-text="Admin">Admin</li>
+		<li><a th:href="@{/doanhThu}"  style="text-decoration:none;">&emsp;<i class='fas fa-shopping-cart' ></i>&emsp; Doanh thu</a></li>
+		<li>
+			<a href="#"  style="text-decoration:none;">&emsp;<i class='fas fa-cogs' ></i>&emsp; Hệ thống <i class='bx bx-chevron-right icon-right' ></i></a>
+			<ul class="side-dropdown">
+				<li><a th:href="@{/dashboard-myprofile}"  style="text-decoration:none;"><i class='fas fa-user' ></i>&emsp;Tài khoản</a></li>
+			</ul>
+		</li>
+		<br><br><br><br>
+		<li>
+			<a th:href="@{/logout-admin}" style="text-decoration:none;">&emsp;<i class='fas fa-sign-out-alt' ></i>&emsp;Logout</a>
+		</li>
+	</ul>
+</section>
+</body>
+</html>

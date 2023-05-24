@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Admin Page</title>
+	<link rel="stylesheet" th:href="@{/admin/style.css}">
+	<link rel="stylesheet" th:href="@{/admin/product.css}">
+	<link rel="stylesheet" th:href="@{/admin/main-color.css}">
+	<link th:href="@{/fontawesome/css/all.css}" rel="stylesheet">
+	<link rel="stylesheet"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<style>
+	.pagination-container {
+    text-align: center;
+}
+
+.pagination {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.paging-item {
+    color: #333;
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.paging-item:hover {
+    background-color: #ddd;
+}
+
+.current-page {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 8px 16px;
+}
+.pagination{
+	padding:5px;
+}
+</style>
+</head>
+<body>
+
+<div class="container-scroller">
+	<div th:replace="admin/menu::menu-section"></div>
+
+	<section id="content">
+		<div th:replace="admin/header::header-nav"></div>
+		<main>
+			<div class="dashboard-content" style="margin-bottom: 70px;">
+
+				<!-- Titlebar -->
+				<div class="container-fluid">
+					<div class="row mb-2">
+						<div class="col-sm-6">
+							<h2 th:text="${session.admin.user_Name + '!'}"></h2>
+						</div>
+						<div class="col-sm-6">
+							<ol class="breadcrumb float-sm-right">
+								<li class="breadcrumb-item"><a href="homeAdmin">Home</a></li>
+								<li class="breadcrumb-item active">Quản lý doanh thu</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				<!-- Content -->
+				<div class="row">
+
+					<!-- Item -->
+					<div class="col-lg-4 col-md-6">
+						<div class="dashboard-stat color-1">
+							<div class="dashboard-stat-content wallet-totals">
+								<h4
+										th:text="${#numbers.formatDecimal(TotalMomo, 0, 'COMMA', 0, 'POINT')}"></h4>
+								<span>Thanh toán qua momo<strong class="wallet-currency">VNĐ</strong></span>
+							</div>
+							<div class="dashboard-stat-icon">
+								<i class="fa-solid fa-money-check"></i>
+							</div>
+						</div>
+					</div>
+					<!-- Item -->
+					<div class="col-lg-4 col-md-6">
+						<div class="dashboard-stat color-3">
+							<div class="dashboard-stat-content wallet-totals">
+								<h4
+										th:text="${#numbers.formatDecimal(TotalDelivery, 0, 'COMMA', 0, 'POINT')}"></h4>
+								<span>Thanh toán khi nhận hàng<strong class="wallet-currency">VNĐ</strong></span>
+							</div>
+							<div class="dashboard-stat-icon">
+								<i class="fa-solid fa-truck-fast"></i>
+							</div>
+						</div>
+					</div>
+
+					<!-- Item -->
+					<div class="col-lg-4 col-md-6">
+						<div class="dashboard-stat color-2">
+							<div class="dashboard-stat-content">
+								<h4
+										th:text="${#numbers.formatDecimal(TotalOrder, 0, 'COMMA', 0, 'POINT')}"></h4>
+								<span>Tổng đơn hàng</span>
+							</div>
+							<div class="dashboard-stat-icon">
+								<i class="fa-solid fa-cart-shopping"></i>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<h3 style="margin-top: 0px; margin-bottom: 0px;">Các đơn gần đây</h3>
+
+				<div class="row">
+
+					<!-- Invoices -->
+					<div class="col-lg-6 col-md-12">
+						<div class="dashboard-list-box invoices with-icons margin-top-20">
+							<h4>Thanh toán qua momo</h4>
+							<ul>
+								<th:block th:each="y : ${listRecentMomo}">
+									<li><i class="list-box-icon sl sl-icon-basket"></i> <strong
+											th:text="${y.user.user_Name}"></strong>
+										<ul>
+											<li class="paid"
+												th:text="${#numbers.formatDecimal(y.total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></li>
+											<li th:text="'Order: #'+${y.id}"></li>
+											<li
+													th:text="'Date: ' + ${#dates.format(y.booking_Date, 'dd/MM/yyyy')}"></li>
+										</ul>
+										<div class="buttons-to-right">
+											<a th:href="@{/dashboard-invoice/{id}(id=${y.id})}"
+											   class="button gray">View Invoice</a>
+										</div></li>
+								</th:block>
+							</ul>
+						</div>
+					</div>
+
+					<!-- Invoices -->
+					<div class="col-lg-6 col-md-12">
+						<div class="dashboard-list-box invoices with-icons margin-top-20">
+							<h4>Thanh toán khi nhận hàng</h4>
+							<ul>
+								<th:block th:each="y : ${listRecentDelivery}">
+									<li><i class="list-box-icon sl sl-icon-basket"></i> <strong th:text="${y.user.user_Name}"></strong>
+										<ul>
+											<li class="paid" th:text="${#numbers.formatDecimal(y.total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></li>
+											<li th:text="'Order: #'+${y.id}"></li>
+											<li th:text="'Date: ' + ${#dates.format(y.booking_Date, 'dd/MM/yyyy')}"></li>
+										</ul>
+										<div class="buttons-to-right">
+											<a th:href="@{/dashboard-invoice/{id}(id=${y.id})}" class="button gray">View
+												Invoice</a>
+										</div></li>
+								</th:block>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<!-- Content / End -->
+		</main>
+	</section>
+</div>
+<script th:src="@{/admin/script.js}"></script>
+<script th:src="@{/fontawesome/js/all.min.js}"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Admin Page</title>
+  <link rel="stylesheet" th:href="@{/admin/style.css}">
+  <link rel="stylesheet" th:href="@{/admin/product.css}">
+  <link rel="stylesheet" th:href="@{/admin/main-color.css}">
+  <link th:href="@{/fontawesome/css/all.css}" rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<div class="container-scroller">
+  <div th:replace="admin/menu::menu-section"></div>
+
+  <section id="content">
+    <div th:replace="admin/header::header-nav"></div>
+    <main>
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h2 th:text="${session.admin.user_Name + '!'}"></h2>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="homeAdmin">Home</a></li>
+<!--              <li class="breadcrumb-item active">Danh sách sản phẩm</li>-->
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-content">
+
+        <!-- Content -->
+        <div class="row" style="justify-content: center; display: flex;">
+
+          <!-- Item -->
+          <div class="col-lg-3 col-md-6">
+            <div class="dashboard-stat color-1">
+              <div class="dashboard-stat-content">
+                <h4 th:text="${Total_Order}"></h4>
+                <span>Tổng đơn hàng</span>
+              </div>
+              <div class="dashboard-stat-icon">
+                <i class="fa fa-shopping-cart"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="col-lg-3 col-md-6">
+            <div class="dashboard-stat color-2">
+              <div class="dashboard-stat-content">
+                <h4 th:text="${Total_Product}"></h4>
+                <span>Số lượng sản phẩm</span>
+              </div>
+              <div class="dashboard-stat-icon">
+                <i class="fa fa-product-hunt"></i>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Item -->
+          <div class="col-lg-3 col-md-6">
+            <div class="dashboard-stat color-3">
+              <div class="dashboard-stat-content">
+                <h4 th:text="${Total_User}"></h4>
+                <span>Số lượng người dùng</span>
+              </div>
+              <div class="dashboard-stat-icon">
+                <i class="fa fa-user"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Item -->
+          <div class="col-lg-3 col-md-6">
+            <div class="dashboard-stat color-4">
+              <div class="dashboard-stat-content">
+                <h4 th:text="${Total_Category}"></h4>
+                <span>Danh mục sản phẩm</span>
+              </div>
+              <div class="dashboard-stat-icon">
+                <i class="fa fa-folder"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row" style="margin-bottom: 70px;">
+
+          <!-- Recent Activity -->
+          <div class="col-lg-6 col-md-12">
+            <div class="dashboard-list-box with-icons margin-top-20">
+              <h4>Người mua gần đây</h4>
+              <ul>
+                <th:block th:each="y : ${recentCustomer}">
+                  <li style="padding-left: 30px;"><img style="width: 40px;height: 40px; border-radius: 50%"
+                          th:src="${y.avatar}"
+                          alt="">&ensp;<strong th:text="${y.user_Name}"></strong> <a th:text="'Email: ' + ${y.email}"></a></li>
+                </th:block>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Invoices -->
+          <div class="col-lg-6 col-md-12">
+            <div class="dashboard-list-box invoices with-icons margin-top-20">
+              <h4>Đơn hàng gần đây</h4>
+              <ul>
+                <th:block th:each="y : ${recentOrders}">
+                  <li><i class="list-box-icon sl sl-icon-doc"></i> <strong th:text="${y.user.user_Name}"></strong>
+                    <ul>
+                      <li th:if="${y.payment_Method == 'Payment on delivery'}" class="unpaid">Payment on delivery</li>
+                      <li th:if="${y.payment_Method == 'Payment with momo'}" class="paid">Payment with momo</li>
+                      <li th:text="'Order: #' + ${y.id}">Order: </li>
+                      <li th:text="'Date: ' + ${#dates.format(y.booking_Date, 'dd/MM/yyyy')}"></li>
+                      <li th:text="'Price: ' + ${#numbers.formatDecimal(y.total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></li>
+                    </ul>
+                    <div class="buttons-to-right">
+                      <a th:href="@{/dashboard-invoice/{id}(id=${y.id})}" class="button gray">View
+                        Invoice</a>
+                    </div>
+                  </li>
+                </th:block>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </section>
+</div>
+<script th:src="@{/admin/script.js}"></script>
+<script th:src="@{/fontawesome/js/all.min.js}"></script>
+</body>
+</html>
+
+

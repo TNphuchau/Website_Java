@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+nav .profile {
+	position: relative;
+}
+
+nav .profile img {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	object-fit: cover;
+	cursor: pointer;
+}
+
+nav .profile .profile-link {
+	position: absolute;
+	top: calc(100% + 10px);
+	right: 0;
+	background: radial-gradient(circle, #d6eec9bd, #ffffff, #fce0ebb8);
+	padding: 10px 0;
+	box-shadow: 4px 4px 16px rgba(0, 0, 0, .1);
+	border-radius: 10px;
+	width: 230px;
+	opacity: 0;
+	pointer-events: none;
+	transition: all .3s ease;
+}
+
+nav .profile .profile-link.show {
+	opacity: 1;
+	pointer-events: visible;
+	top: 100%;
+}
+
+nav .profile .profile-link a {
+	padding: 10px 16px;
+	display: flex;
+	grid-gap: 10px;
+	font-size: 14px;
+	color: var(--dark);
+	align-items: center;
+	transition: all .3s ease;
+}
+
+nav .profile .profile-link a:hover {
+	background: var(--grey);
+}
+
+@media screen and (max-width: 768px) {
+	#content {
+		position: relative;
+		width: calc(100% - 60px);
+		transition: all .3s ease;
+	}
+	nav .nav-link, nav .divider {
+		display: none;
+	}
+}
+</style>
+</head>
+<body>
+
+  <nav>
+    <div class="profile">
+      <img src="${userLogin.getAvatar() }" alt="">
+      <ul class="profile-link">
+        <li>
+          <img src="${userLogin.getAvatar() }" style="width: 60px; height: 60px; border: 1px solid red;">
+          <p class="mb-1 mt-3 font-weight-semibold">${userLogin.getFullname() }</p>
+          <p class="fw-light text-muted mb-0">${userLogin.getEmail() }</p>
+        </li>
+        <li>
+          <php:if test="${userLogin.getRole() == 1 }">
+            <a href="admin/product"><i class="fa fa-user-secret"></i>Admin</a>
+          </php:if>
+        </li>
+        <li><a href="./profile"><i class="fa fa-user"></i>Profile</a></li>
+        <li><a href="signout"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+      </ul>
+    </div>
+  </nav>
+
+</body>
+</html>

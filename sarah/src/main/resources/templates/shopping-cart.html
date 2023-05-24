@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Sarah</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Sarah Cosmetic">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/bootstrap4/bootstrap.min.css}">
+	<link th:href="@{/web/plugins/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/animate.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/categories_styles.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/responsive.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/web.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/hau.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/flexCard.css}">
+</head>
+
+<body>
+
+<div class="super_container">
+	<!-- Header -->
+	<div th:replace="web/header :: header-web"></div>
+	<div class="fs_menu_overlay"></div>
+	<script th:if="${session.CartIsEmpty != null}">swal("Cart Is Empty!", "", "error");</script>
+	<p th:if="${session.CartIsEmpty != null}" th:text="${#session.setAttribute('CartIsEmpty', null)}" style="display: none;"></p>
+
+	<div class="container product_section_container">
+		<div class="row">
+			<div class="col product_section clearfix">
+				<!-- Breadcrumbs -->
+				<div class="breadcrumbs d-flex flex-row align-items-center">
+					<ul>
+						<li><a href="home">Home</a></li>
+						<li class="active"><a href="cart"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+					</ul>
+				</div>
+				<!-- Breadcrumb Section End -->
+
+				<!-- Shopping Cart Section Begin -->
+				<form action="" method="POST" enctype="multipart/form-data">
+					<div class="row">
+						<th:block th:each="y : ${listCart}">
+							<div class="col-md-12" id="load_data">
+								<table class="table ">
+									<tr class="text-center" >
+										<td><img th:src="${y.product.productImage[0].url_Image}" width="150" /></td>
+										<td>
+											<a th:text="${y.product.product_Name}"></a>
+											<br />
+											<a></a>
+											<br />
+											<a th:text="${#numbers.formatDecimal(y.product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></a>
+										</td>
+										<td>
+											<input style="width:80px;" th:name="'count'+${yStat.index}" type="number" th:value="${y.count}"
+												   oninput="updateQuantity(this, ${y.id})" min="1">
+										</td>
+										<th class="cart__price" th:text="${#numbers.formatDecimal(y.product.price * y.count, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></th>
+										<td>
+											<a th:href="@{/deleteCart/{id}(id=${y.id})}" class="btn btn-sm btn-outline-danger btnDelete">Xoá</a>
+											<a class="update__btn"><button  formaction="/updateCart" class="btn btn-sm btn-outline-success">
+												Cập nhật
+											</button></a>
+										</td>
+
+									</tr>
+									<tr>
+										<td colspan="6"></td>
+										<th style="color:red">Tổng tiền:</th>
+										<th><span th:text="${#numbers.formatDecimal(Total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span></th>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-12">
+								<div class="text-right">
+									<a th:href="@{/shop}" class="btn btn-outline-danger btnDeleteAll">Tiếp tục mua sắm</a>
+									<a th:href="@{/checkout}" class="btn btn-outline-primary ">Thanh toán</a>
+								</div>
+							</div>
+						</th:block>
+					</div>
+				</form>
+				<!-- Shopping Cart Section End -->
+
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="web/footer::footer-web"></div>
+</div>
+</body>
+<!--Click ảnh người dùng-->
+<script>
+	const profile = document.querySelector('nav .profile');
+	const imgProfile = profile.querySelector('img');
+	const dropdownProfile = profile.querySelector('.profile-link');
+
+	imgProfile.addEventListener('click', function() {
+		dropdownProfile.classList.toggle('show');
+	})
+</script>
+<script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/web/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/web/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/web/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/web/plugins/easing/easing.js}"></script>
+<script th:src="@{/web/js/custom.js}"></script>
+<script th:src="@{/web/js/web.js}"></script>
+</html>

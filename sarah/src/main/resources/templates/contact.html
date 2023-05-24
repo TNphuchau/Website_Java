@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Sarah</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Sarah Cosmetic">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" th:href="@{/web/styles/bootstrap4/bootstrap.min.css}">
+  <link th:href="@{/web/plugins/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/animate.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/web/styles/categories_styles.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/web/styles/responsive.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/web/styles/web.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/web/styles/hau.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/flexCard.css}">
+  <style>
+    .navbar {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 20px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="super_container">
+  <!-- Header -->
+  <div th:replace="web/header :: header-web"></div>
+  <div class="fs_menu_overlay"></div>
+  <br> <br> <br> <br> <br>
+  <div class="container contact_container">
+    <div class="row">
+      <div class="col">
+
+        <!-- Breadcrumbs -->
+
+        <div class="breadcrumbs d-flex flex-row align-items-center">
+          <ul>
+            <li><a href="home">Home</a></li>
+            <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Map Container -->
+
+    <div class="row">
+      <div class="col">
+        <div id="google_map">
+          <div class="map_container">
+            <div id="map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d772.0470217785105!2d106.82223384914262!3d10.80611887062637!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317521f7f3205325%3A0x3fb11ddf15703fab!2zS0RDIENo4bujIExvbmcgVHLGsOG7nW5n!5e0!3m2!1svi!2s!4v1680281893535!5m2!1svi!2s" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Us -->
+
+    <div class="row">
+
+      <div class="col-lg-6 contact_col">
+        <div class="contact_contents">
+          <h1>Contact Us</h1>
+          <p>Hỗ trợ khách hàng</p>
+          <div>
+            <p>Hotline: 0707396920</p>
+            <p>Sarah@gmail.com</p>
+          </div>
+          <div>
+            <p></p>
+          </div>
+          <div>
+            <p></p>
+            <p></p>
+          </div>
+        </div>
+
+        <!-- Follow Us -->
+
+        <div class="follow_us_contents">
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <!-- Shop Section End -->
+  <div th:replace="web/footer::footer-web"></div>
+</div>
+</body>
+<!--Click ảnh người dùng-->
+<script>
+	const profile = document.querySelector('nav .profile');
+	const imgProfile = profile.querySelector('img');
+	const dropdownProfile = profile.querySelector('.profile-link');
+
+	imgProfile.addEventListener('click', function() {
+		dropdownProfile.classList.toggle('show');
+	})
+</script>
+<script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/web/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/web/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/web/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/web/plugins/easing/easing.js}"></script>
+<script th:src="@{/web/js/custom.js}"></script>
+<script th:src="@{/web/js/web.js}"></script>
+<script th:src="@{/web/js/contact_custom.js}"></script>
+</html>

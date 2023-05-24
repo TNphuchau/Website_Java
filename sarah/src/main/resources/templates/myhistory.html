@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Sarah</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Sarah Cosmetic">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/bootstrap4/bootstrap.min.css}">
+	<link th:href="@{/web/plugins/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/animate.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/categories_styles.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/responsive.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/web.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/hau.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/flexCard.css}">
+</head>
+
+<body>
+
+<div class="super_container">
+	<!-- Header -->
+	<div th:replace="web/header :: header-web"></div>
+	<div class="fs_menu_overlay"></div>
+
+	<div class="container product_section_container">
+		<div class="row">
+			<div class="col product_section clearfix">
+
+				<div class="dashboard-content" style="width: 80%; margin-left: 0px; margin: 0 100px;">
+				<!-- Breadcrumbs -->
+				<div class="breadcrumbs d-flex flex-row align-items-center">
+					<ul>
+						<li><a href="home">Home</a></li>
+						<li class="active"><a href="myprofile"><i class="fa fa-angle-right" aria-hidden="true"></i>Lịch sử mua hàng</a></li>
+					</ul>
+				</div>
+
+				<!-- Content -->
+					<div class="row">
+						<!-- Invoices -->
+						<div style="width: 100%;">
+							<div class="dashboard-list-box invoices with-icons margin-top-20">
+								<h4>Hoá đơn</h4>
+								<ul>
+									<th:block th:each="y : ${listOrder}">
+										<li><i class="list-box-icon sl sl-icon-doc"></i> <strong
+												th:text="${y.order_Item[0].product.product_Name}"></strong> <span th:if="${#lists.size(y.order_Item) >1}"
+																												  style="margin-left: 20px; color: rgb(207, 32, 97)"
+																												  th:text="' and ' + ${#lists.size(y.order_Item)} + ' more ...'"></span>
+											<ul>
+												<li class="unpaid" style="color: #5392fa;"
+													th:if="${y.payment_Method=='Thanh toán khi nhận hàng'}"
+													th:text="${y.payment_Method}"></li>
+												<li class="paid"
+													th:if="${y.payment_Method=='Thanh toán với momo'}"
+													th:text="${y.payment_Method}">Paid</li>
+												<li th:text="'Order: #' + ${y.id}"></li>
+												<li
+														th:text="'Date: ' + ${#dates.format(y.booking_Date, 'dd-MM-yyyy')}"></li>
+											</ul>
+											<div class="buttons-to-right">
+												<a th:href="@{/invoice/{id}(id=${y.id})}" class="button gray">Xem hoá đơn</a>
+											</div></li>
+									</th:block>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<!-- Content / End -->
+			</div>
+		</div>
+	</div>
+	<!-- Content / End -->
+	<br><br><br>
+	</div>
+
+	<div th:replace="web/footer::footer-web"></div>
+</div>
+</body>
+<!--Click ảnh người dùng-->
+<script>
+	const profile = document.querySelector('nav .profile');
+	const imgProfile = profile.querySelector('img');
+	const dropdownProfile = profile.querySelector('.profile-link');
+
+	imgProfile.addEventListener('click', function() {
+		dropdownProfile.classList.toggle('show');
+	})
+</script>
+<script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/web/styles/bootstrap4/popper.js}"></script>
+<script th:src="@{/web/styles/bootstrap4/bootstrap.min.js}"></script>
+<script th:src="@{/web/plugins/Isotope/isotope.pkgd.min.js}"></script>
+<script th:src="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.js}"></script>
+<script th:src="@{/web/plugins/easing/easing.js}"></script>
+<script th:src="@{/web/js/custom.js}"></script>
+<script th:src="@{/web/js/web.js}"></script>
+</html>
