@@ -2,15 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Admin Page</title>
     <link rel="stylesheet" th:href="@{/admin/style.css}">
     <link rel="stylesheet" th:href="@{/admin/product.css}">
     <link rel="stylesheet" th:href="@{/admin/main-color.css}">
     <link th:href="@{/fontawesome/css/all.css}" rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
 
     </style>
@@ -43,14 +41,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr th:each="user, iterStat : ${users}">
+                                <td th:text="${iterStat.index + 1}"></td>
+                                <td th:text="${user.id}"></td>
+                                <td th:text="${user.user_Name}"></td>
+                                <td th:text="${user.email}"></td>
                                 <td>
-                                    <a th:href="editAccount" class="btn btn-sm btn-outline-primary">Sửa</a>
-                                    <a th:href="deleteAccount" class="btn btn-sm btn-outline-danger btnDelete">Xoá</a>
+                                    <div>
+                                        <a th:href="@{/editAccount/{id}(id=${user.id})}" class="btn btn-sm btn-outline-primary">Sửa</a>
+                                        <a th:href="@{/listAccount/delete/{id}(id=${user.id})}" class="btn btn-sm btn-outline-danger btnDelete">Xoá</a>
+                                    </div>
                                 </td>
                             </tr>
                             </tbody>
@@ -66,5 +66,3 @@
 <script th:src="@{/fontawesome/js/all.min.js}"></script>
 </body>
 </html>
-
-

@@ -38,10 +38,20 @@ public class UserServiceImpl implements UserService{
 		return userRepository.save(user);
 	}
 
+
+
+	@Override
+	public User getUserById(String id) {
+		// TODO Auto-generated method stub
+		return userRepository.findById(id);
+	}
+
 	@Override
 	public void deleteUserById(String id) {
-		// TODO Auto-generated method stub
-		userRepository.deleteById(id);
+		User user = userRepository.findById(id);
+		if (user != null) {
+			userRepository.delete(user);
+		}
 	}
 	@Override
 	public User GetUserByEmail(String email) {
@@ -56,6 +66,11 @@ public class UserServiceImpl implements UserService{
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
-	
-	
+
+	@Override
+	public boolean existsById(String accountId) {
+		return false;
+	}
+
+
 }

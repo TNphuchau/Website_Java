@@ -14,10 +14,12 @@ public interface UserService {
 	User updateUser(User user);
 
 	void deleteUserById(String id);
-	
+	User getUserById (String id);
 	User GetUserByEmail(String email);
 
 	User findByIdAndRole(String id, String role);
 
-	List<User> findAll();    
+	List<User> findAll();
+
+	boolean existsById(String accountId);
 }

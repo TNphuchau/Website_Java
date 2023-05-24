@@ -124,8 +124,7 @@
 													<h3>
 														<a href="#" th:text="${y.product_Name}"></a>
 													</h3>
-													<h3
-															th:text="${#numbers.formatDecimal(y.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></h3>
+													<h3   th:text="${#numbers.formatDecimal(y.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></h3>
 													<span th:text="'Categorie: ' + ${y.category.category_Name}"></span><br>
 													<span th:text="'Availability: ' + ${y.quantity}"></span>
 												</div>

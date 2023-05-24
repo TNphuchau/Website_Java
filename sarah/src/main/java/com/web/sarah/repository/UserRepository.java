@@ -9,6 +9,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 //	@Query(value="select * from user u where u.id = ?1 and u.role = ?2",nativeQuery = true)
 	User findByIdAndRole(String id, String role);
-	
+	void delete(User user);
 	void deleteById(String id);
 }

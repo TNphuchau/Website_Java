@@ -110,24 +110,41 @@ public class AdminController {
 			return "homeAdmin";
 		}
 	}
-
 	@GetMapping("/listAccount")
 	public String ListAccountView(Model model) {
 		User admin = (User) session.getAttribute("admin");
 		if (admin == null) {
 			return "redirect:/loginAdmin";
 		} else {
+			List<User> users = userService.getAllUser();
+			model.addAttribute("users", users);
 			return "listAccount";
 		}
 	}
-	@GetMapping("/editAccount")
-	public String AddAccountView(Model model) {
-		User admin = (User) session.getAttribute("admin");
-		if (admin == null) {
-			return "redirect:/loginAdmin";
-		} else {
-			return "editAccount";
-		}
+
+@GetMapping("/editAccount/{id}")
+public String editAccountView(@PathVariable("id") String id, Model model) {
+	User admin = (User) session.getAttribute("admin");
+	if (admin == null) {
+		return "redirect:/loginAdmin";
+	} else {
+		User user = userService.getUserById(id);
+		model.addAttribute("user", user);
+		return "editAccount";
+	}
+}
+
+	@PostMapping("/editAccount")
+	public String editAccount(@ModelAttribute User user, Model model) {
+		// Thực hiện chỉnh sửa thông tin tài khoản
+		User updatedUser = userService.updateUser(user);
+
+		// Cập nhật lại danh sách tài khoản
+		List<User> userList = userService.findAll();
+		model.addAttribute("users", userList);
+
+		// Chuyển hướng về trang danh sách tài khoản
+		return "redirect:/listAccount";
 	}
 
 	@GetMapping("/listCategory")
@@ -140,6 +157,17 @@ public class AdminController {
 			model.addAttribute("listCategories", listCategories);
 			return "listCategory";
 		}
+	}
+	@GetMapping("/listAccount/delete/{id}")
+	public String deleteAccount(@PathVariable String id) {
+		userService.deleteUserById(id);
+		return "redirect:/listAccount";
+	}
+
+	@DeleteMapping("/api/listAccount/delete/{id}")
+	public ResponseEntity<Object> deleteAccountById(@PathVariable String id) {
+		userService.deleteUserById(id);
+		return ResponseEntity.ok().build();
 	}
 
 	@GetMapping("/addCategory")
