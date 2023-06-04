@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpSession;
@@ -79,14 +77,22 @@ public class ProductControler {
 		return "home";
 	}
 	@GetMapping("/shop")
-	public String shop(Model model) throws Exception {
+	public String shop(Model model, @RequestParam(defaultValue = "asc") String sortType) throws Exception {
 		List<Product> lp = productService.getAllProduct();
 		int TotalPro = lp.size();
-		model.addAttribute("TotalPro",TotalPro);
-		Pageable pageable = PageRequest.of(0, 12);
+		model.addAttribute("TotalPro", TotalPro);
+
+		Pageable pageable;
+		if (sortType.equals("asc")) {
+			pageable = PageRequest.of(0, 12, Sort.by("price").ascending());
+		} else {
+			pageable = PageRequest.of(0, 12, Sort.by("price").descending());
+		}
+
 		Page<Product> page = productRepository.findAll(pageable);
 		List<Category> listCategory = categoryService.findAll();
 		String search_input = (String) session.getAttribute("search_input");
+
 		model.addAttribute("listProduct", page);
 		model.addAttribute("listCategory", listCategory);
 		model.addAttribute("search_input", search_input);
