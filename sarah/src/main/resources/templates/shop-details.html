@@ -11,6 +11,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.carousel.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/owl.theme.default.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/web/plugins/OwlCarousel2-2.2.1/animate.css}">
+	<!--	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/main_styles.css}">-->
 	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/single_styles.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/single_responsive.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/web.css}">
@@ -42,10 +43,9 @@
 					</ul>
 				</div>
 				<!-- Shop Details Section Begin -->
-				<section class="shop-details">
-					<div class="product__details__pic">
-						<div class="container">
-
+				<div class="row">
+					<div class="col-lg-7">
+						<div class="single_product_pics">
 							<div class="row">
 								<div class="col-lg-3 thumbnails_col order-lg-1 order-2">
 									<div class="single_product_thumbnails">
@@ -82,112 +82,66 @@
 							</div>
 						</div>
 					</div>
-							<div class="col-lg-5">
-								<div class="product_details">
-									<div class="product_details_title">
-										<h2 th:text="${product.product_Name}"></h2>
-										<p th:text="${product.description}"></p>
-									</div>
-									<div class="original_price" th:text="${product.price}+' VNĐ'"></div>
-									<div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
-										<span>Quantity:</span>
-										<div class="quantity_selector">
-											<span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
-											<span id="quantity_value">1</span>
-											<span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
-										</div>
-										<form action="/addToCart" method="post">
-											<div class="red_button add_to_cart_button"><a th:value="${product.id}" class="btnAddToCart">Thêm vào giỏ hàng</a></div>
-										</form>
-										<div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
-									</div>
-								</div>
+					<div class="col-lg-5">
+						<div class="product_details">
+							<div class="product_details_title">
+								<h2 th:text="${product.product_Name}"></h2>
+								<p th:text="${product.description}"></p>
 							</div>
-<!--							<div class="row">-->
-<!--								<div class="col-lg-12">-->
-<!--									<div class="product__details__tab">-->
-<!--										<ul class="nav nav-tabs" role="tablist">-->
-<!--											<li class="nav-item"><a class="nav-link active"-->
-<!--																	data-toggle="tab" href="#tabs-5" role="tab">Description</a></li>-->
-<!--											<li class="nav-item"><a class="nav-link" data-toggle="tab"-->
-<!--																	href="#tabs-6" role="tab">Customer Previews(5)</a></li>-->
-<!--											<li class="nav-item"><a class="nav-link" data-toggle="tab"-->
-<!--																	href="#tabs-7" role="tab">Additional information</a></li>-->
-<!--										</ul>-->
-<!--										<div class="tab-content">-->
-<!--											<div class="tab-pane active" id="tabs-5" role="tabpanel">-->
-<!--												<div class="product__details__tab__content">-->
+							<div class="original_price" th:text="${product.price}+' VNĐ'"></div>
+							<div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+								<span>Quantity:</span>
+								<div class="quantity_selector">
+									<span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+									<span id="quantity_value">1</span>
+									<span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+								</div>
+								<form action="/addToCart" method="post">
+									<div class="red_button add_to_cart_button">
+										<input type="hidden" name="product_id" th:value="${product.id}"/>
+										<button type="submit" class="btnAddToCart">Thêm vào giỏ hàng</button>
+									</div>
+								</form>
+								<div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-<!--												</div>-->
-<!--											</div>-->
-<!--											<div class="tab-pane" id="tabs-6" role="tabpanel">-->
-<!--												<div class="product__details__tab__content">-->
-<!--													<div class="product__details__tab__content__item">-->
-
-<!--												</div>-->
-<!--											</div>-->
-<!--											<div class="tab-pane" id="tabs-7" role="tabpanel">-->
-<!--												<div class="product__details__tab__content">-->
-
-<!--												</div>-->
-<!--											</div>-->
-<!--										</div>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--					</div>-->
 				</section>
 			</div>
 		</div>
 	</div>
 
 	<!-- Related Section Begin -->
-	<section class="related spad">
+	<section class="product spad">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
-					<h3 class="related-title">Một số sản phẩm gợi ý</h3>
+					<ul class="filter__controls">
+						<li class="active" style="color:red">Một số gợi ý sản phẩm</li>
+					</ul>
 				</div>
 			</div>
-			<div class="row">
-				<th:block th:each="y : ${relatedProduct}">
-					<div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
-						<div class="product__item">
-							<div class="product__item__pic set-bg"
-								 th:data-setbg="${y.productImage[0].url_Image}">
-								<span class="label">New</span>
-								<ul class="product__hover">
-									<li><a href="#"><img src="/img/icon/heart.png" alt=""></a></li>
-									<li><a href="#"><img src="/img/icon/compare.png"
-														 alt=""> <span>Compare</span></a></li>
-									<li><a th:href="@{/productDetail/{id}(id=${y.id})}"><img
-											src="/img/icon/search.png" alt=""></a></li>
-								</ul>
-							</div>
-							<div class="product__item__text">
-								<h6 th:text="${y.product_Name}"></h6>
-								<a th:href="@{/addToCart/{id}(id=${y.id})}" class="add-cart">+
-									Add To Cart</a>
-								<div class="rating">
-									<i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i
-										class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i
-										class="fa fa-star-o"></i>
+			<div class="row product__filter">
+				<th:block th:each="y : ${Top12ProductNewArrivals}">
+					<a th:href="@{/productDetail/{id}(id=${y.id})}" >
+						<div class="product-item">
+							<div class="product discount product_filter">
+								<div class="product_image">
+									<img th:src="${y.productImage[0].url_Image}">
 								</div>
-								<h5
-										th:text=" ${#numbers.formatDecimal(y.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></h5>
-								<div class="product__color__select">
-									<label for="pc-1"> <input type="radio" id="pc-1">
-									</label> <label class="active black" for="pc-2"> <input
-										type="radio" id="pc-2">
-								</label> <label class="grey" for="pc-3"> <input type="radio"
-																				id="pc-3">
-								</label>
+								<div class="favorite favorite_left"></div>
+								<div class="product_info">
+									<h6 class="product_name">
+										<a th:href="@{/productDetail/{id}(id=${y.id})}" th:text="${y.product_Name}"></a>
+									</h6>
+									<div class="product_price" th:text=" ${#numbers.formatDecimal(y.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
 								</div>
 							</div>
+							<div class="red_button add_to_cart_button"><a th:href="@{/addToCart/{id}(id=${y.id})}" class="btnAddToCart" data-id="@item.Id"> Thêm giỏ hàng</a></div>
 						</div>
-					</div>
+					</a>
 				</th:block>
 			</div>
 		</div>
@@ -206,6 +160,32 @@
 	imgProfile.addEventListener('click', function() {
 		dropdownProfile.classList.toggle('show');
 	})
+</script>
+<script>
+    // Lấy phần tử HTML chứa giá trị số lượng
+    var quantityElement = document.getElementById("quantity_value");
+
+    // Lấy phần tử HTML cho nút tăng số lượng
+    var plusButton = document.querySelector(".plus");
+
+    // Lấy phần tử HTML cho nút giảm số lượng
+    var minusButton = document.querySelector(".minus");
+
+    // Định nghĩa hàm xử lý sự kiện khi nhấn nút tăng
+    plusButton.addEventListener("click", function() {
+        var quantity = parseInt(quantityElement.innerText);
+        quantity += 1;
+        quantityElement.innerText = quantity;
+    });
+
+    // Định nghĩa hàm xử lý sự kiện khi nhấn nút giảm
+    minusButton.addEventListener("click", function() {
+        var quantity = parseInt(quantityElement.innerText);
+        if (quantity > 1) {
+            quantity -= 1;
+            quantityElement.innerText = quantity;
+        }
+    });
 </script>
 <script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/popper.js}"></script>

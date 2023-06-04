@@ -122,14 +122,20 @@
 												<li>Tổng tiền <span th:text="${#numbers.formatDecimal(Total, 0, 'COMMA', 0, 'POINT')}"></span></li>
 											</ul>
 											<div class="checkout__input__checkbox">
-												<label for="payment"> Thanh toán khi nhận hàng
-													<input name="payOndelivery" type="checkbox" id="payment" onclick="uncheckOther(this, 'paypal')">
+												<label for="payment">Thanh toán khi nhận hàng
+													<input name="payOndelivery" type="checkbox" id="payment" onclick="uncheckOther(this, 'paypal', '')">
 													<span class="checkmark"></span>
 												</label>
 											</div>
 											<div class="checkout__input__checkbox">
-												<label for="paypal"> Thanh toán với momo
-													<input name="payWithMomo" type="checkbox" id="paypal" onclick="uncheckOther(this, 'payment')">
+												<label for="paypal">Thanh toán với momo
+													<input name="payWithMomo" type="checkbox" id="paypal" onclick="uncheckOther(this, 'payment', 'vnpay')">
+													<span class="checkmark"></span>
+												</label>
+											</div>
+											<div class="checkout__input__checkbox">
+												<label for="vnpay">Thanh toán với vnpay
+													<input name="payWithVnpay" type="checkbox" id="vnpay" onclick="uncheckOther(this, 'payment', 'paypal')">
 													<span class="checkmark"></span>
 												</label>
 											</div>
@@ -162,12 +168,16 @@
 </script>
 <!--Chỉ cho chọn thanh toán 1 trong 2-->
 <script>
-function uncheckOther(checkbox, otherCheckboxId) {
-  var otherCheckbox = document.getElementById(otherCheckboxId);
+function uncheckOther(checkbox, firstCheckboxId, secondCheckboxId) {
+  var firstCheckbox = document.getElementById(firstCheckboxId);
+  var secondCheckbox = document.getElementById(secondCheckboxId);
+
   if (checkbox.checked) {
-    otherCheckbox.checked = false;
+    firstCheckbox.checked = false;
+    secondCheckbox.checked = false;
   }
 }
+
 </script>
 <script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/popper.js}"></script>

@@ -15,7 +15,7 @@ public interface OrderRepository extends JpaRepository<Order,Integer>{
 	@Query(value="Select * From `order` o ORDER BY o.id DESC LIMIT 5;",nativeQuery = true)
 	List<Order> findTop5RecentOrder();
 	
-	@Query(value="Select distinct o.user_id From `order` o ORDER BY o.id DESC LIMIT 5;",nativeQuery = true)
+	@Query(value="Select o.user_id From `order` o ORDER BY o.id DESC LIMIT 5;",nativeQuery = true)
 	List<String> findTop5RecentCustomer();
 	
 	Page<Order> findAll(Pageable pageable);
