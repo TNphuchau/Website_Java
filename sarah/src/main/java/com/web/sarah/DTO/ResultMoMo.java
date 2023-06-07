@@ -1,4 +1,4 @@
-package momo;
+package com.web.sarah.DTO;
 
 public class ResultMoMo {
 	public String t;

@@ -44,7 +44,7 @@ public class ProductControler {
 	CookieService cookie;
 
 	@GetMapping(value = {"","/home"})
-	public String listStudents(Model model) throws Exception {
+	public String listStudents(Model model, HttpSession session) throws Exception {
 		Cookie user_name = cookie.read("user_name");
 		Cookie remember = cookie.read("remember");
 		String error_momo = (String) session.getAttribute("error_momo");

@@ -1,6 +1,7 @@
 package com.web.sarah.controller;
 
 import com.web.sarah.DTO.VnpayResDTO;
+import com.web.sarah.DTO.VnpayTransactionDTO;
 import com.web.sarah.config.VnpayConfig;
 import com.web.sarah.entity.*;
 import com.web.sarah.service.CartService;
@@ -9,15 +10,15 @@ import com.web.sarah.service.Order_ItemService;
 import com.web.sarah.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import momo.MomoModel;
-import momo.ResultMoMo;
-import org.apache.http.HttpStatus;
+import com.web.sarah.DTO.ResultMoMo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import utils.Constant;
-import utils.Decode;
+import com.web.sarah.config.MomoConfig;
+import com.web.sarah.config.Decode;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -51,6 +52,7 @@ public class OrderController {
 	@Autowired
 	HttpSession session;
 
+
 	@GetMapping("checkout")
 	public String CheckOutView(Model model) {
 		User user = (User) session.getAttribute("acc");
@@ -76,9 +78,8 @@ public class OrderController {
 		}
 	}
 
-	@ResponseBody
 	@PostMapping("checkout")
-	public String CheckOut(@ModelAttribute("fullname") String fullname, @ModelAttribute("country") String country,
+	public String CheckOut(@ModelAttribute("fullname") String fullname,
 			@ModelAttribute("address") String address, @ModelAttribute("phone") String phone,
 			@ModelAttribute("email") String email, @ModelAttribute("note") String note,
 			@RequestParam(value = "payOndelivery", defaultValue = "false") boolean payOndelivery,
@@ -97,7 +98,7 @@ public class OrderController {
 		String payment_method = null;
 		if (payOndelivery == true) {
 			payment_method = "Thanh toán khi nhận hàng";
-		}if (payWithVnpay == true) {
+		} else if (payWithVnpay == true) {
 			payment_method = "Payment with vnpay";
 		}
 		else {
@@ -107,7 +108,6 @@ public class OrderController {
 		newOrder.setTotal(Total);
 		newOrder.setAddress(address);
 		newOrder.setBooking_Date(booking_date);
-		newOrder.setCountry(country);
 		newOrder.setEmail(email);
 		newOrder.setFullname(fullname);
 		newOrder.setNote(note);
@@ -115,41 +115,43 @@ public class OrderController {
 		newOrder.setPhone(phone);
 		newOrder.setStatus(status);
 		newOrder.setUser(user);
-		int code = (int) Math.floor(((Math.random() * 89999999) + 10000000));
-		String orderId = Integer.toString(code);
+
+
 		if (payment_method.equals("Payment with momo")) {
+			int code = (int) Math.floor(((Math.random() * 89999999) + 10000000));
+			String orderId = Integer.toString(code);
 			session.setAttribute("newOrder", newOrder);
 			ObjectMapper mapper = new ObjectMapper();
 			MomoModel jsonRequest = new MomoModel();
-			jsonRequest.setPartnerCode(Constant.IDMOMO);
+			jsonRequest.setPartnerCode(MomoConfig.IDMOMO);
 			jsonRequest.setOrderId(orderId);
 			jsonRequest.setStoreId(orderId);
-			jsonRequest.setRedirectUrl(Constant.redirectUrl);
-			jsonRequest.setIpnUrl(Constant.ipnUrl);
+			jsonRequest.setRedirectUrl(MomoConfig.redirectUrl);
+			jsonRequest.setIpnUrl(MomoConfig.ipnUrl);
 			jsonRequest.setAmount(String.valueOf(Total));
 			jsonRequest.setOrderInfo("Thanh toán Sarah.");
 			jsonRequest.setRequestId(orderId);
-			jsonRequest.setOrderType(Constant.orderType);
-			jsonRequest.setRequestType(Constant.requestType);
+			jsonRequest.setOrderType(MomoConfig.orderType);
+			jsonRequest.setRequestType(MomoConfig.requestType);
 			jsonRequest.setTransId("1");
 			jsonRequest.setResultCode("200");
 			jsonRequest.setMessage("");
-			jsonRequest.setPayType(Constant.payType);
+			jsonRequest.setPayType(MomoConfig.payType);
 			jsonRequest.setResponseTime("300000");
 			jsonRequest.setExtraData("");
-			String decode = "accessKey=" + Constant.accessKey + "&amount=" + jsonRequest.amount + "&extraData="
-					+ jsonRequest.extraData + "&ipnUrl=" + Constant.ipnUrl + "&orderId=" + orderId + "&orderInfo="
+			String decode = "accessKey=" + MomoConfig.accessKey + "&amount=" + jsonRequest.amount + "&extraData="
+					+ jsonRequest.extraData + "&ipnUrl=" + MomoConfig.ipnUrl + "&orderId=" + orderId + "&orderInfo="
 					+ jsonRequest.orderInfo + "&partnerCode=" + jsonRequest.getPartnerCode() + "&redirectUrl="
-					+ Constant.redirectUrl + "&requestId=" + jsonRequest.getRequestId() + "&requestType="
-					+ Constant.requestType;
-			String signature = Decode.encode(Constant.serectkey, decode);
+					+ MomoConfig.redirectUrl + "&requestId=" + jsonRequest.getRequestId() + "&requestType="
+					+ MomoConfig.requestType;
+			String signature = Decode.encode(MomoConfig.serectkey, decode);
 			jsonRequest.setSignature(signature);
 			String json = mapper.writeValueAsString(jsonRequest);
 			HttpClient client = HttpClient.newHttpClient();
 			ResultMoMo res = new ResultMoMo();
 
 			try {
-				HttpRequest request = HttpRequest.newBuilder().uri(new URI(Constant.Url))
+				HttpRequest request = HttpRequest.newBuilder().uri(new URI(MomoConfig.Url))
 						.POST(HttpRequest.BodyPublishers.ofString(json)).headers("Content-Type", "application/json")
 						.build();
 				HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -165,19 +167,20 @@ public class OrderController {
 
 				return "redirect:" + res.payUrl;
 			}
-		}if (payment_method.equals("Payment with vnpay")){
+		}else if (payment_method.equals("Payment with vnpay")){
 			String vnp_TxnRef = VnpayConfig.getRandomNumber(8);
 			String vnp_TmnCode = VnpayConfig.vnp_TmnCode;
 			Map<String, String> vnp_Params = new HashMap<>();
 			vnp_Params.put("vnp_Version", VnpayConfig.vnp_Version);
 			vnp_Params.put("vnp_Command", VnpayConfig.vnp_Command);
 			vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-			vnp_Params.put("vnp_Amount", String.valueOf(Total));
+			vnp_Params.put("vnp_Amount", String.valueOf(Total*100));
 			vnp_Params.put("vnp_CurrCode", "VND");
 			vnp_Params.put("vnp_BankCode", "NCB");
 			vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-			vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
+			vnp_Params.put("vnp_OrderInfo", "Thanh toan Sarah:" + vnp_TxnRef);
 			vnp_Params.put("vnp_Locale", "vn");
+			vnp_Params.put("vnp_Returnurl", VnpayConfig.vnp_Returnurl);
 
 			Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -276,6 +279,26 @@ public class OrderController {
 			return "redirect:/invoice";
 		}
 	}
+
+//	@GetMapping("/paywithvnpay")
+//	public  String PayWithVnpayGet (
+//			@RequestParam(value = "vnp_Amount") String amount,
+//			@RequestParam(value = "vnp_BankCode") String bankCode,
+//			@RequestParam(value = "vnp_OrderInfo") String order,
+//			@RequestParam(value = "vnp_ResponseCode") String responseCode
+//	){
+//		VnpayTransactionDTO transactionDTO = new VnpayTransactionDTO();
+//
+//		if(responseCode.equals("00")){
+//			transactionDTO.setStatus("Yes");
+//			transactionDTO.setData("");
+//			}
+//		}else{
+//
+//		}
+//
+//
+//	}
 
 	@GetMapping("invoice")
 	public String Invoice(Model model) {

@@ -330,3 +330,18 @@ function update() {
 }
 
 
+  function toggleSearch() {
+		var searchContainer = document.querySelector('.search-container');
+        	searchContainer.classList.toggle('active');
+
+		var input = document.querySelector('.search-input');
+		var voiceIcon = document.querySelector('.voice-icon');
+
+		if (input.style.display === 'none') {
+			input.style.display = 'inline-block';
+			voiceIcon.style.display = 'inline-block';
+		} else {
+			input.style.display = 'none';
+			voiceIcon.style.display = 'none';
+		}
+	}

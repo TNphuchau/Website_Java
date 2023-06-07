@@ -55,8 +55,9 @@
 													th:if="${y.payment_Method=='Thanh toán khi nhận hàng'}"
 													th:text="${y.payment_Method}"></li>
 												<li class="paid"
-													th:if="${y.payment_Method=='Thanh toán với momo'}"
+													th:if="${y.payment_Method=='Payment with momo'}"
 													th:text="${y.payment_Method}">Paid</li>
+
 												<li th:text="'Order: #' + ${y.id}"></li>
 												<li
 														th:text="'Date: ' + ${#dates.format(y.booking_Date, 'dd-MM-yyyy')}"></li>

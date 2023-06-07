@@ -296,7 +296,6 @@ select {
 	outline: none;
 	font-size: 15px;
 	color: #808080;
-	margin: 0 0 16px 0;
 	max-width: 100%;
 	width: 100%;
 	box-sizing: border-box;
@@ -19727,6 +19726,22 @@ body .category-box-btn:hover {
 
 
 
+.search-container {
+	display: flex;
+	align-items: center;
+}
+
+.search-input,
+.voice-icon {
+	display: none;
+	margin-left: 10px; /* Khoảng cách giữa ô nhập và biểu tượng tìm kiếm */
+	margin-right: 10px;
+}
+
+.search-container.active .search-input,
+.search-container.active .voice-icon {
+	display: inline-block;
+}
 
 
 

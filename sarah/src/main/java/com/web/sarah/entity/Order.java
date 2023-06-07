@@ -46,8 +46,8 @@ public class Order {
 	
 	@Column(name = "note", columnDefinition = "nvarchar(1111)")
 	private String note;
-	
-	@OneToMany(mappedBy = "order")
+
+	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
 	private List<Order_Item> order_Item;
 	
 	@ManyToOne

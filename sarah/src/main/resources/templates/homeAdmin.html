@@ -125,7 +125,7 @@
                       <li th:text="'Price: ' + ${#numbers.formatDecimal(y.total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></li>
                     </ul>
                     <div class="buttons-to-right">
-                      <a th:href="@{/dashboard-invoice/{id}(id=${y.id})}" class="button gray">View
+                      <a th:href="@{/invoice/{id}(id=${y.id})}" class="button gray">View
                         Invoice</a>
                     </div>
                   </li>

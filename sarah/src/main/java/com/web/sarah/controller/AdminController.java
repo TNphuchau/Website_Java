@@ -552,7 +552,7 @@ public String editAccountView(@PathVariable("id") String id, Model model) {
 		if (admin == null) {
 			return "redirect:/loginAdmin";
 		} else {
-			Pageable pageable = PageRequest.of(0, 3);
+			Pageable pageable = PageRequest.of(0, 10);
 			Page<Order> pageOrder = orderService.findAll(pageable);
 			model.addAttribute("pageOrder", pageOrder);
 			return "orderAdmin";
@@ -614,7 +614,7 @@ public String editAccountView(@PathVariable("id") String id, Model model) {
 		} else {
 			List<Order> listOrder = orderService.findAll();
 			List<Order> listPaymentWithMomo = orderService.findAllByPayment_Method("Payment with momo");
-			List<Order> listPaymentOnDelivery = orderService.findAllByPayment_Method("Payment on delivery");
+			List<Order> listPaymentOnDelivery = orderService.findAllByPayment_Method("Thanh toán khi nhận hàng");
 			int TotalMomo = 0;
 			int TotalDelivery = 0;
 			for (Order y : listPaymentWithMomo) {
@@ -624,7 +624,7 @@ public String editAccountView(@PathVariable("id") String id, Model model) {
 				TotalDelivery = TotalDelivery + y.getTotal();
 			}
 			List<Order> listRecentMomo = orderService.findTop5OrderByPaymentMethod("Payment with momo");
-			List<Order> listRecentDelivery = orderService.findTop5OrderByPaymentMethod("Payment on delivery");
+			List<Order> listRecentDelivery = orderService.findTop5OrderByPaymentMethod("Thanh toán khi nhận hàng");
 
 			model.addAttribute("TotalMomo", TotalMomo);
 			model.addAttribute("TotalDelivery", TotalDelivery);

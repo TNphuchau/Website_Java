@@ -144,7 +144,7 @@
 													th:text="'Date: ' + ${#dates.format(y.booking_Date, 'dd/MM/yyyy')}"></li>
 										</ul>
 										<div class="buttons-to-right">
-											<a th:href="@{/dashboard-invoice/{id}(id=${y.id})}"
+											<a th:href="@{/invoice/{id}(id=${y.id})}"
 											   class="button gray">View Invoice</a>
 										</div></li>
 								</th:block>
@@ -165,7 +165,7 @@
 											<li th:text="'Date: ' + ${#dates.format(y.booking_Date, 'dd/MM/yyyy')}"></li>
 										</ul>
 										<div class="buttons-to-right">
-											<a th:href="@{/dashboard-invoice/{id}(id=${y.id})}" class="button gray">View
+											<a th:href="@{/invoice/{id}(id=${y.id})}" class="button gray">View
 												Invoice</a>
 										</div></li>
 								</th:block>

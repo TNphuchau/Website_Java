@@ -42,9 +42,9 @@
 				<!-- Shopping Cart Section Begin -->
 				<form action="" method="POST" enctype="multipart/form-data">
 					<div class="row">
-						<th:block th:each="y : ${listCart}">
-							<div class="col-md-12" id="load_data">
-								<table class="table ">
+						<div class="col-md-12" id="load_data">
+							<table class="table ">
+								<th:block th:each="y : ${listCart}">
 									<tr class="text-center" >
 										<td><img th:src="${y.product.productImage[0].url_Image}" width="150" /></td>
 										<td>
@@ -67,20 +67,21 @@
 										</td>
 
 									</tr>
-									<tr>
-										<td colspan="6"></td>
-										<th style="color:red">Tổng tiền:</th>
-										<th><span th:text="${#numbers.formatDecimal(Total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span></th>
-									</tr>
-								</table>
+								</th:block>
+								<tr>
+									<td colspan="6"></td>
+									<th style="color:red">Tổng tiền:</th>
+									<th><span th:text="${#numbers.formatDecimal(Total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span></th>
+								</tr>
+							</table>
+						</div>
+						<div class="col-md-12">
+							<div class="text-right">
+								<a th:href="@{/shop}" class="btn btn-outline-danger btnDeleteAll">Tiếp tục mua sắm</a>
+								<a th:href="@{/checkout}" class="btn btn-outline-primary ">Thanh toán</a>
+								<!--								<a th:href="@{/deleteAllCartItems}" class="btn btn-sm btn-outline-danger btnDeleteAll">Xoá tất cả </a>-->
 							</div>
-							<div class="col-md-12">
-								<div class="text-right">
-									<a th:href="@{/shop}" class="btn btn-outline-danger btnDeleteAll">Tiếp tục mua sắm</a>
-									<a th:href="@{/checkout}" class="btn btn-outline-primary ">Thanh toán</a>
-								</div>
-							</div>
-						</th:block>
+						</div>
 					</div>
 				</form>
 				<!-- Shopping Cart Section End -->

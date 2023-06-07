@@ -87,6 +87,15 @@ nav .profile .profile-link a:hover {
 					</div>
 					<nav class="navbar">
 						<ul class="navbar_menu">
+							<li>
+								<form th:action="@{/search}" method="POST">
+									<div class="search-container">
+										<i class="fa fa-search search-icon" onclick="toggleSearch()"></i>
+										<input type="text" class="search-input" id="search-input" name="search-input" placeholder="Tìm kiếm..." th:value="${search_input}">
+										<i class="fa fa-microphone voice-icon"></i>
+									</div>
+								</form>
+							</li>
 							<li><a href="home">Trang chủ</a></li>
 							<li><a href="shop">Sản phẩm</a></li>
 							<li><a href="contact">liên hệ</a></li>
