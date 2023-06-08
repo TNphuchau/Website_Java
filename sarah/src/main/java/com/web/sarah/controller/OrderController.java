@@ -220,7 +220,7 @@ public class OrderController {
 			String paymentUrl = VnpayConfig.vnp_PayUrl + "?" + queryUrl;
 			VnpayResDTO vnpayResDTO = new VnpayResDTO();
 			vnpayResDTO.setUrl(paymentUrl);
-
+			orderService.saveOrder(newOrder);
 			resp.sendRedirect(paymentUrl);
 			return null ;
 

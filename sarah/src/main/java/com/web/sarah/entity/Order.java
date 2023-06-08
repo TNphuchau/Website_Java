@@ -31,9 +31,7 @@ public class Order {
 	
 	@Column(name = "fullname", columnDefinition = "nvarchar(1111)")
 	private String fullname;
-	
-	@Column(name = "country", columnDefinition = "nvarchar(1111)")
-	private String country;
+
 	
 	@Column(name = "address", columnDefinition = "nvarchar(1111)")
 	private String address;
