@@ -280,25 +280,22 @@ public class OrderController {
 		}
 	}
 
-//	@GetMapping("/paywithvnpay")
-//	public  String PayWithVnpayGet (
-//			@RequestParam(value = "vnp_Amount") String amount,
-//			@RequestParam(value = "vnp_BankCode") String bankCode,
-//			@RequestParam(value = "vnp_OrderInfo") String order,
-//			@RequestParam(value = "vnp_ResponseCode") String responseCode
-//	){
-//		VnpayTransactionDTO transactionDTO = new VnpayTransactionDTO();
-//
-//		if(responseCode.equals("00")){
-//			transactionDTO.setStatus("Yes");
-//			transactionDTO.setData("");
-//			}
-//		}else{
-//
-//		}
-//
-//
-//	}
+	@GetMapping("/paywithvnpay")
+	public ResponseEntity<VnpayTransactionDTO> PayWithVnpayGet(
+			@RequestParam(value = "vnp_Amount") String amount,
+			@RequestParam(value = "vnp_BankCode") String bankCode,
+			@RequestParam(value = "vnp_OrderInfo") String order,
+			@RequestParam(value = "vnp_ResponseCode") String responseCode
+	) {
+		VnpayTransactionDTO transactionDTO;
+		if (responseCode.equals("00")) {
+			transactionDTO = new VnpayTransactionDTO("Yes", "", "");
+		} else {
+			transactionDTO = new VnpayTransactionDTO("No", "", "");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(transactionDTO);
+	}
+
 
 	@GetMapping("invoice")
 	public String Invoice(Model model) {
