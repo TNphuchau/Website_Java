@@ -9,6 +9,7 @@
 	<link rel="stylesheet" th:href="@{/admin/product.css}">
 	<link rel="stylesheet" th:href="@{/admin/main-color.css}">
 	<link th:href="@{/fontawesome/css/all.css}" rel="stylesheet">
+
 	<link rel="stylesheet"
 		  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<style>
@@ -52,6 +53,51 @@
 .pagination{
 	padding:5px;
 }
+
+
+.form-row {
+      margin-bottom: 10px;
+    }
+    textarea, input {
+      width: 30%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      text-decoration: none;
+      outline: none;
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+    #send-mail-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    text-decoration: none;
+  }
+  #send-mail-button:hover {
+    opacity: 0.8;
+  }
+  #send-mail-button i {
+    margin-right: 5px;
+  }
+   input[name="email"] {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
 </style>
 </head>
 <body>
@@ -103,7 +149,7 @@
 													<h3 th:if="${y.order_Item.size() > 1}"
 														th:text="${y.order_Item[0].product.product_Name} + '( And '+ ${y.order_Item.size() - 1} + ' more ...)'"></h3>
 													<div class="inner-booking-list">
-														<h5>Purchase Date:</h5>
+														<h5>Ngày mua:</h5>
 														<ul class="booking-list">
 															<li class="highlighted"
 																th:text="${#dates.format(y.booking_Date, 'dd/MM/yyyy')}"></li>
@@ -111,14 +157,14 @@
 													</div>
 
 													<div class="inner-booking-list">
-														<h5>Note:</h5>
+														<h5>Chú thích:</h5>
 														<ul class="booking-list">
 															<li class="highlighted" th:text="${y.note}"></li>
 														</ul>
 													</div>
 
 													<div class="inner-booking-list">
-														<h5>Price:</h5>
+														<h5>Tổng tiền:</h5>
 														<ul class="booking-list">
 															<li class="highlighted"
 																th:text="${#numbers.formatDecimal(y.total, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></li>
@@ -126,7 +172,7 @@
 													</div>
 
 													<div class="inner-booking-list">
-														<h5>Client:</h5>
+														<h5>Thông tin khách hàng:</h5>
 														<ul class="booking-list">
 															<li th:text="${y.user.user_Name}"></li>
 															<li th:text="${y.user.email}"></li>
@@ -135,23 +181,29 @@
 													</div>
 
 													<!-- Reply to review popup -->
+													<a href="#small-dialog" id="send-mail-button" class="rate-review popup-with-zoom-anim">
+														<i class="sl sl-icon-envelope-open"></i> Gửi mail
+													</a>
+
 													<div id="small-dialog" class="zoom-anim-dialog mfp-hide">
 														<div class="small-dialog-header">
 															<h3>Send Message</h3>
 														</div>
 														<div class="message-reply margin-top-0">
 															<form action="/send-message" method="post">
-																<textarea name="message" cols="40" rows="3"
-																		  th:placeholder="'Your Message to ' +${y.user.user_Name}"></textarea>
-																<input name="email" th:value="${y.user.email}">
-																<button type="submit" class="button">Send</button>
+																<div class="form-row">
+																	<textarea name="message" cols="40" rows="3" th:placeholder="'Your Message to ' +${y.user.user_Name}"></textarea>
+																</div>
+																<div class="form-row">
+																	<input name="email" th:value="${y.user.email}">
+																</div>
+																<div class="form-row">
+																	<button type="submit" class="button">Gửi</button>
+																</div>
 															</form>
 														</div>
 													</div>
 
-													<a href="#small-dialog"
-													   class="rate-review popup-with-zoom-anim"><i
-															class="sl sl-icon-envelope-open"></i> Send Message</a>
 												</div>
 											</div>
 										</div>
@@ -202,6 +254,23 @@
 </div>
 <script th:src="@{/admin/script.js}"></script>
 <script th:src="@{/fontawesome/js/all.min.js}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script>
+    $(document).ready(function() {
+      $('#send-mail-button').magnificPopup({
+        type: 'inline',
+        preloader: false,
+        closeOnBgClick: true,
+        callbacks: {
+          close: function() {
+            $(this.content).find('form')[0].reset();
+          }
+        }
+      });
+    });
+  </script>
 <script>
 		$(function() {
 
@@ -240,9 +309,7 @@
 					}, cb);
 
 			cb(start, end);
-
 		});
-
 		// Calendar animation and visual settings
 		$('#booking-date-range')
 				.on(

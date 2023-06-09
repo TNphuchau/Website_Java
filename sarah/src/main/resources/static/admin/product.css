@@ -13799,33 +13799,6 @@ a.close-list-item {
 
 /* Dashbaord Reviews
 ------------------------------------- */
-.dashboard-list-box .comments.listing-reviews li {
-	margin: 19px 0 10px 0;
-}
-
-.dashboard-list-box  a.rate-review {
-    border: none;
-    color: #666;
-    background-color: #eee;
-    padding: 4px 18px;
-}
-
-.dashboard-list-box  a.rate-review:hover {
-    background-color: #66676b;
-    color: #fff;
-}
-
-.dashboard-list-box .comment-by-listing {
-	display: inline-block;
-	color: #888;
-}
-
-.dashboard-list-box .comment-by-listing.own-comment,
-.dashboard-list-box .comment-by-listing.own-comment a { color: #444; }
-
-.dashboard-list-box .comment-by-listing a { color: #888; }
-.dashboard-list-box .comment-by-listing a:hover { color: #66676b; }
-
 
 /* Checkbox slide */
 .add-listing-section label.switch {
@@ -19205,18 +19178,7 @@ body .category-box-btn:hover {
 	    padding: 30px;
 	}
 
-	#sign-in-dialog, #small-dialog {
-		background: #fff;
-		padding: 30px;
-		padding-top: 0;
-    }
 
-	#sign-in-dialog .mfp-close, #small-dialog .mfp-close {
-	    top: 24px;
-	    right: 30px;
-	    width: 40px;
-	    height: 40px;
-	}
 
 	.list-box-listing { display: block;}
 
