@@ -16,6 +16,7 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/web.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/web/styles/hau.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/flexCard.css}">
+
 	<style>
         .product_image img{
             width:100%;
@@ -76,7 +77,17 @@
 					</ul>
 				</div>
 				<!-- Breadcrumb Section End -->
+				<div class="shop__sidebar">
+					<h1>Lọc số tiền sản phẩm</h1>
 
+					<label for="minPrice">Giá tối thiểu:</label>
+					<input type="number" id="minPrice">
+
+					<label for="maxPrice">Giá tối đa:</label>
+					<input type="number" id="maxPrice">
+
+					<button onclick="filterProductByPrice()">Lọc</button>
+				</div>
 				<!-- Shop Section Begin -->
 				<section class="shop spad">
 					<div class="container">
@@ -130,7 +141,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="row">
+								<div class="row" id="productList">
 									<th:block th:each="y : ${listProduct.content}">
 										<a th:href="@{/productDetail/{id}(id=${y.id})}" >
 											<div class="product-item">
@@ -229,7 +240,29 @@
 		dropdownProfile.classList.toggle('show');
 	})
 </script>
-<script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  function filterProductByPrice() {
+    var minPrice = parseInt(document.getElementById('minPrice').value);
+    var maxPrice = parseInt(document.getElementById('maxPrice').value);
+
+    var productList = document.getElementById('productList');
+    var products = productList.getElementsByClassName('product-item');
+
+    for (var i = 0; i < products.length; i++) {
+      var product = products[i];
+      var productPriceElement = product.getElementsByClassName('product_price')[0];
+      var productPriceText = productPriceElement.innerText.trim();
+      var productPrice = parseInt(productPriceText.replace(' VNĐ', '').replace(',', ''));
+
+      if (productPrice >= minPrice && productPrice <= maxPrice) {
+        product.style.display = 'block';
+      } else {
+        product.style.display = 'none';
+      }
+    }
+  }
+</script>
 <script th:src="@{/web/styles/bootstrap4/popper.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/bootstrap.min.js}"></script>
 <script th:src="@{/web/plugins/Isotope/isotope.pkgd.min.js}"></script>

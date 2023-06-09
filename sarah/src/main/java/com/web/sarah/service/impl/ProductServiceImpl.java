@@ -83,5 +83,9 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findTop4ProductByCategory_id(int id) {
 		return productRepository.findTop4ProductByCategory_id(id);
 	}
+	@Override
+	public List<Product> filterProductsByPrice(double minPrice, double maxPrice) {
+		return productRepository.findByPriceBetween(minPrice, maxPrice);
+	}
 	
 }

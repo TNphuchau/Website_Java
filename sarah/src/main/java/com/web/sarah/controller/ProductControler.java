@@ -174,4 +174,10 @@ public class ProductControler {
 	public String blogDetailsView(Model model) {
 		return "blog-details";
 	}
+	@PostMapping("/filter")
+	public List<Product> filterProductsByPrice(@RequestParam("minPrice") double minPrice, @RequestParam("maxPrice") double maxPrice) {
+		List<Product> filteredProducts = productService.filterProductsByPrice(minPrice, maxPrice);
+		return filteredProducts;
+	}
+
 }
