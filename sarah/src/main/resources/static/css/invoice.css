@@ -32,7 +32,7 @@ body {
 }
 
 #invoice {
-    background: radial-gradient(circle, #d6eec9bd, #ffffff, #fce0ebb8);
+    background: white;
     width: auto;
     max-width: 900px;
     padding: 60px;

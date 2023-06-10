@@ -22,4 +22,5 @@ public class ProductImage {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	private Product product;
+
 }

@@ -22,8 +22,6 @@ public class Product {
 	@Column(name = "description", columnDefinition = "nvarchar(255)")
 	private String description;
 
-
-
 	@Column(name = "is_Active")
 	private int is_Active;
 
