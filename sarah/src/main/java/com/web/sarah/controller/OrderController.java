@@ -180,7 +180,7 @@ public class OrderController {
 			vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
 			vnp_Params.put("vnp_OrderInfo", "Thanh toan Sarah:" + vnp_TxnRef);
 			vnp_Params.put("vnp_Locale", "vn");
-			vnp_Params.put("vnp_Returnurl", VnpayConfig.vnp_Returnurl);
+//			vnp_Params.put("vnp_Returnurl", VnpayConfig.vnp_Returnurl);
 
 			Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -281,19 +281,17 @@ public class OrderController {
 	}
 
 	@GetMapping("/paywithvnpay")
-	public ResponseEntity<VnpayTransactionDTO> PayWithVnpayGet(
+	public String PayWithVnpayGet(
 			@RequestParam(value = "vnp_Amount") String amount,
 			@RequestParam(value = "vnp_BankCode") String bankCode,
 			@RequestParam(value = "vnp_OrderInfo") String order,
 			@RequestParam(value = "vnp_ResponseCode") String responseCode
 	) {
-		VnpayTransactionDTO transactionDTO;
 		if (responseCode.equals("00")) {
-			transactionDTO = new VnpayTransactionDTO("Yes", "", "");
+			return "redirect:/invoice";
 		} else {
-			transactionDTO = new VnpayTransactionDTO("No", "", "");
+			return "redirect:/home";
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(transactionDTO);
 	}
 
 
