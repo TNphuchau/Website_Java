@@ -24,14 +24,15 @@ strong {
 }
 
 body {
-    background: #f4f4f4;
+
+    background: radial-gradient(circle, #ffffff, #fecfe0);
     color: #666;
     font-weight: 300;
     line-height: 28px;
 }
 
 #invoice {
-    background: white;
+    background: radial-gradient(circle, #d6eec9bd, #ffffff, #fce0ebb8);
     width: auto;
     max-width: 900px;
     padding: 60px;

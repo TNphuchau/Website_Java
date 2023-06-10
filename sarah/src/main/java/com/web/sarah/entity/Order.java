@@ -28,11 +28,10 @@ public class Order {
 	
 	@Column(name = "status", columnDefinition = "nvarchar(1111)")
 	private String status;
-	
+
 	@Column(name = "fullname", columnDefinition = "nvarchar(1111)")
 	private String fullname;
 
-	
 	@Column(name = "address", columnDefinition = "nvarchar(1111)")
 	private String address;
 	
