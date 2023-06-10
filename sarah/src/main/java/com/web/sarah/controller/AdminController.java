@@ -290,7 +290,6 @@ public String editAccountView(@PathVariable("id") String id, Model model) {
 				newPro.setPrice(Integer.parseInt(price));
 				newPro.setProduct_Name(product_name);
 				newPro.setQuantity(Integer.parseInt(availability));
-				newPro.setSold(0);
 				newPro.setCategory(cate);
 				productService.saveProduct(newPro);
 				List<Product> listProducts = productService.getAllProduct();

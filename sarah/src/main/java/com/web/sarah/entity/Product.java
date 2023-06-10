@@ -16,14 +16,13 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "product_Name", columnDefinition = "nvarchar(1111)")
+	@Column(name = "product_Name", columnDefinition = "nvarchar(255)")
 	private String product_Name;
 
-	@Column(name = "description", columnDefinition = "nvarchar(11111)")
+	@Column(name = "description", columnDefinition = "nvarchar(255)")
 	private String description;
 
-	@Column(name = "sold")
-	private int sold;
+
 
 	@Column(name = "is_Active")
 	private int is_Active;

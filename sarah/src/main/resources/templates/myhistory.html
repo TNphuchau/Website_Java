@@ -46,7 +46,7 @@
 								<h4>Hoá đơn</h4>
 								<ul>
 									<th:block th:each="y : ${listOrder}">
-										<li><i class="list-box-icon sl sl-icon-doc"></i> <strong th:text="${y.order_Item[0].product.product_Name}" th:if="${#lists.size(y.order_Item) > 0}"></strong> <span th:if="${#lists.size(y.order_Item) > 1}" style="margin-left: 20px; color: rgb(207, 32, 97)" th:text="' and ' + ${#lists.size(y.order_Item)} + ' more ...'"></span>
+										<li><i class="list-box-icon sl sl-icon-doc"></i> <strong th:text="${y.order_Item[0].product.product_Name}" th:if="${#lists.size(y.order_Item) > 0}"></strong>
 
 										<ul>
 												<li class="unpaid" style="color: #5392fa;"

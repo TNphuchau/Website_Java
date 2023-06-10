@@ -15,12 +15,12 @@
     <div class="form-container register-container">
         <form th:action="@{/signup}" method="post" id="form-signup">
             <h1>Register</h1>
-            <input type="text" id="username" name="username" placeholder="Tên đăng nhập">
-            <input type="password" id="password" name="password" placeholder="Mật khẩu">
-            <input type="password" id="comfirm_password" name="comfirm_password" placeholder="Nhập lại mật khẩu">
-            <input type="text" id="fullname" name="fullname" placeholder="Tên đầy đủ">
+            <input type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
+            <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+            <input type="password" id="comfirm_password" name="comfirm_password" placeholder="Nhập lại mật khẩu" required onchange="validatePassword()">
+            <input type="text" id="fullname" name="fullname" placeholder="Tên đầy đủ" required>
             <input type="text" id="your_email" name="your_email" placeholder="Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
-<!--            <input type="text" placeholder="Số điện thoại" name="phone_Number" id="phone_Number">-->
+            <!--            <input type="text" placeholder="Số điện thoại" name="phone_Number" id="phone_Number">-->
             <div th:if="${errorRegister != null}">
                 <p style="color: red;" th:text ="${errorSignUp}"></p>
             </div>
@@ -104,5 +104,16 @@
 			}
 		});
 	</script>
+<script>
+function validatePassword() {
+  var password = document.getElementById("password").value;
+  var confirm_password = document.getElementById("comfirm_password").value;
+
+  if (password !== confirm_password) {
+    alert("Mật khẩu xác nhận không khớp. Vui lòng nhập lại.");
+    document.getElementById("comfirm_password").value = "";
+  }
+}
+</script>
 </body>
 </html>

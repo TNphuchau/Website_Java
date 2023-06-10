@@ -15,7 +15,7 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 	@Query(value="Select * From product p ORDER BY p.quantity DESC LIMIT 12;",nativeQuery = true)
 	List<Product> findTop12ProductBestSellers();
 	
-	@Query(value="Select * From product p ORDER BY p.created_at DESC LIMIT 12;",nativeQuery = true)
+	@Query(value="Select * From product p ORDER BY p.created_at DESC LIMIT 10;",nativeQuery = true)
 	List<Product> findTop12ProductNewArrivals();
 	
 	Page<Product> findAllByCategory_id(int id, Pageable pageable);

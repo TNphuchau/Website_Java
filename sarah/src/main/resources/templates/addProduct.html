@@ -93,14 +93,14 @@
 									<!-- Headline -->
 									<div class="add-listing-headline">
 										<h3>
-											<i class="sl sl-icon-doc"></i> Basic Informations
+											<i class="sl sl-icon-doc"></i> Thông tin sản phẩm
 										</h3>
 									</div>
 
 									<!-- Title -->
 									<div class="row with-forms">
 										<div class="col-md-12">
-											<h5>Product Name</h5>
+											<h5>Tên sản phẩm</h5>
 											<input name="product_name" class="search-field" type="text"
 												   value="" placeholder="Product Name" />
 										</div>
@@ -110,18 +110,18 @@
 									<div class="row with-forms">
 										<!-- Price -->
 										<div class="col-md-4">
-											<h5>Price</h5>
+											<h5>Giá tiền</h5>
 											<input name="price" type="text" placeholder="Price">
 										</div>
 
 										<div class="col-md-4">
-											<h5>Availability</h5>
+											<h5>Số lượng</h5>
 											<input name="availability" type="text"
 												   placeholder="Availability">
 										</div>
 										<!-- Status -->
 										<div class="col-md-4">
-											<h5>Category</h5>
+											<h5>Loại sản phẩm</h5>
 											<select name="category" class="chosen-select-no-single">
 												<option value="1" label=""
 														th:text="${listCategories[0].category_Name}"></option>
@@ -150,7 +150,7 @@
 
 									<!-- Description -->
 									<div class="form">
-										<h5>Description</h5>
+										<h5>Mô tả</h5>
 										<textarea name="description" class="WYSIWYG" cols="40"
 												  rows="3" id="summary" spellcheck="true"
 												  placeholder="Description"></textarea>
@@ -164,7 +164,7 @@
 									<!-- Headline -->
 									<div class="add-listing-headline">
 										<h3>
-											<i class="sl sl-icon-picture"></i> Images
+											<i class="sl sl-icon-picture"></i> Hình ảnh
 										</h3>
 									</div>
 
@@ -174,7 +174,7 @@
 										<div class="upload__box">
 											<div class="upload__btn-box">
 												<label class="upload__btn">
-													<p style="margin-bottom: 0px;">Choose images</p> <input
+													<p style="margin-bottom: 0px;">Tải ảnh</p> <input
 														name="listImage" accept="image/*" type="file"
 														data-max_length="20" class="upload__inputfile" multiple>
 												</label>
@@ -185,7 +185,7 @@
 								</div>
 								<!-- Section / End -->
 								<button class="button preview">
-									Add New Product <i class="fa fa-arrow-circle-right"></i>
+									Thêm sản phẩm <i class="fa fa-arrow-circle-right"></i>
 								</button>
 
 							</div>

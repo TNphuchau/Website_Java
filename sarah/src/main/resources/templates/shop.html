@@ -195,7 +195,7 @@ Copy code
 														<div class="product_price" th:text=" ${#numbers.formatDecimal(y.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
 													</div>
 												</div>
-												<div class="red_button add_to_cart_button"><a th:href="@{/addToCart/{id}(id=${y.id})}" class="btnAddToCart" data-id="@item.Id" onclick="return checkLogin();"> Thêm giỏ hàng</a></div>
+												<div class="red_button add_to_cart_button"><a th:href="@{/addToCart/{id}(id=${y.id})}" class="btnAddToCart" data-id="@item.Id" > Thêm giỏ hàng</a></div>
 											</div>
 										</a>
 									</th:block>
@@ -319,18 +319,6 @@ Copy code
       }
     }
   }
-</script>
-<script>
-    function checkLogin() {
-        var isLoggedIn = /* Kiểm tra trạng thái đăng nhập ở phía server */ false;
-
-        if (isLoggedIn) {
-            return true; // Cho phép thêm vào giỏ hàng
-        } else {
-            alert("Vui lòng đăng nhập để thêm vào giỏ hàng.");
-            return false; // Ngăn không cho thêm vào giỏ hàng
-        }
-    }
 </script>
 <script th:src="@{/web/styles/bootstrap4/popper.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/bootstrap.min.js}"></script>

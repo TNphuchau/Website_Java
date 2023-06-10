@@ -59,9 +59,9 @@
 											<p>
 												Địa chỉ<span>*</span>
 											</p>
-											<input name="address" type="text" placeholder="Address"
-												   class="checkout__input__add">
+											<input name="address" type="text" placeholder="Địa chỉ" class="checkout__input__add" required>
 										</div>
+
 										<div class="row">
 											<div class="col-lg-6">
 												<div class="checkout__input">
@@ -69,7 +69,7 @@
 														Số điện thoại<span>*</span>
 													</p>
 													<input name="phone" type="text"
-														   th:value="${session.acc.phone_Number}">
+														   th:value="${session.acc.phone_Number}" required>
 												</div>
 											</div>
 											<div class="col-lg-6">
@@ -117,19 +117,19 @@
 											</ul>
 											<div class="checkout__input__checkbox">
 												<label for="payment">Thanh toán khi nhận hàng
-													<input name="payOndelivery" type="checkbox" id="payment" onclick="uncheckOther(this, 'paypal', '')">
+													<input name="payOndelivery" type="checkbox" id="payment" onchange="uncheckOther(this, 'paypal', '')">
 													<span class="checkmark"></span>
 												</label>
 											</div>
 											<div class="checkout__input__checkbox">
 												<label for="paypal">Thanh toán với momo
-													<input name="payWithMomo" type="checkbox" id="paypal" onclick="uncheckOther(this, 'payment', 'vnpay')">
+													<input name="payWithMomo" type="checkbox" id="paypal" onchange="uncheckOther(this, 'payment', 'vnpay')">
 													<span class="checkmark"></span>
 												</label>
 											</div>
 											<div class="checkout__input__checkbox">
 												<label for="vnpay">Thanh toán với vnpay
-													<input name="payWithVnpay" type="checkbox" id="vnpay" onclick="uncheckOther(this, 'payment', 'paypal')">
+													<input name="payWithVnpay" type="checkbox" id="vnpay" onchange="uncheckOther(this, 'payment', 'paypal')">
 													<span class="checkmark"></span>
 												</label>
 											</div>
@@ -163,15 +163,14 @@
 <!--Chỉ cho chọn thanh toán 1 trong 2-->
 <script>
 function uncheckOther(checkbox, firstCheckboxId, secondCheckboxId) {
-  var firstCheckbox = document.getElementById(firstCheckboxId);
-  var secondCheckbox = document.getElementById(secondCheckboxId);
+	var firstCheckbox = document.getElementById(firstCheckboxId);
+	var secondCheckbox = document.getElementById(secondCheckboxId);
 
-  if (checkbox.checked) {
-    firstCheckbox.checked = false;
-    secondCheckbox.checked = false;
-  }
+	if (checkbox.checked) {
+		firstCheckbox.checked = false;
+		secondCheckbox.checked = false;
+	}
 }
-
 </script>
 <script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/popper.js}"></script>

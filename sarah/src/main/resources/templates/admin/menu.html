@@ -13,13 +13,13 @@
 	<a href="#" class="brand"  style="text-decoration:none;"><i class='bx bxs-chart icon'></i>&emsp;Sarah</a>
 	<ul class="side-menu">
 		<li class="divider" data-text="Nhân viên">Nhân viên</li>
-		<li><a href="/homeAdmin"  style="text-decoration:none;">&emsp;<i class='fas fa-house-damage' ></i>&emsp;Trang chủ</a></li>
+		<li><a th:href="@{/homeAdmin}"  style="text-decoration:none;">&emsp;<i class='fas fa-house-damage' ></i>&emsp;Trang chủ</a></li>
 		<li>
-			<a style="text-decoration:none;">&emsp;<i class='fas fa-cubes' ></i>&emsp; Quản lý sản phẩm</a>
+			<a style="text-decoration:none;">&emsp;<i class='fas fa-cubes'></i>&emsp; Quản lý sản phẩm</a>
 			<ul class="side-dropdown">
-				<li><a th:href="@{/listProduct}"  style="text-decoration:none;"><i class='fas fa-tags' ></i>&emsp; Sản phẩm</a></li>
-				<li><a th:href="@{/listCategory}"  style="text-decoration:none;"><i class="fas fa-list"></i>&emsp; Thêm danh mục</a></li>
-				<li><a th:href="@{/addProduct}"  style="text-decoration:none;"><i class='fas fa-plus-circle' ></i>&emsp; Thêm sản phẩm</a></li>
+				<li><a th:href="@{/listProduct}" style="text-decoration:none;"><i class='fas fa-tags'></i>&emsp; Sản phẩm</a></li>
+				<li><a th:href="@{/listCategory}" style="text-decoration:none;"><i class="fas fa-list"></i>&emsp; Thêm danh mục</a></li>
+				<li><a th:href="@{/addProduct}" style="text-decoration:none;"><i class='fas fa-plus-circle'></i>&emsp; Thêm sản phẩm</a></li>
 			</ul>
 		</li>
 		<li><a th:href="@{/orderAdmin}"  style="text-decoration:none;">&emsp;<i class='fas fa-shopping-basket' ></i>&emsp;Đơn hàng</a></li>

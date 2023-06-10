@@ -312,6 +312,7 @@ ol {
 
 .header {
 	background: #ffffff;
+	z-index: 9999;
 }
 
 .header__top {

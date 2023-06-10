@@ -91,7 +91,7 @@ public class CartController {
 		User user = (User) session.getAttribute("acc");
 		if (user == null) {
 			session.setAttribute("AddToCartErr", "Vui lòng đăng nhập trước khi thực hiện thao tác");
-			return "redirect:" + referer;
+			return "redirect:/signin"; // Thay "/login" bằng đường dẫn tới trang đăng nhập của bạn
 		} else {
 			List<Cart> listCart = cartService.GetAllCartByUser_id(user.getId());
 			Product product = productService.getProductById(id);
@@ -123,13 +123,13 @@ public class CartController {
 
 	@PostMapping("/addToCart")
 	public String AddToCartPost(@ModelAttribute("product_id") int product_id, @ModelAttribute("count") String a,
-			Model model, HttpServletRequest request) throws Exception {
+								Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		int count = Integer.parseInt(a);
 		String referer = request.getHeader("Referer");
 		User user = (User) session.getAttribute("acc");
 		if (user == null) {
 			session.setAttribute("AddToCartErr", "Vui lòng đăng nhập trước khi thực hiện thao tác");
-			return "redirect:" + referer;
+			return "redirect:/signin"; // Thay "/login" bằng đường dẫn tới trang đăng nhập của bạn
 		} else {
 			List<Cart> listCart = cartService.GetAllCartByUser_id(user.getId());
 			Product product = productService.getProductById(product_id);
@@ -152,7 +152,6 @@ public class CartController {
 			session.setAttribute("countCart", listCart.size());
 			return "redirect:" + referer;
 		}
-
 	}
 
 }

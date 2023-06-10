@@ -231,7 +231,7 @@ public class OrderController {
 			for (Cart y : listCart) {
 				Product product = y.getProduct();
 				product.setQuantity(product.getQuantity() - y.getCount());
-				product.setSold(product.getSold() + y.getCount());
+
 				productService.saveProduct(product);
 				Order_Item newOrder_Item = new Order_Item();
 				newOrder_Item.setCount(y.getCount());
@@ -263,7 +263,6 @@ public class OrderController {
 			for (Cart y : listCart) {
 				Product product = y.getProduct();
 				product.setQuantity(product.getQuantity() - y.getCount());
-				product.setSold(product.getSold() + y.getCount());
 				productService.saveProduct(product);
 				Order_Item newOrder_Item = new Order_Item();
 				newOrder_Item.setCount(y.getCount());

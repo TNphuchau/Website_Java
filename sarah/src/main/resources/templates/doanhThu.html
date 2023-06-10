@@ -145,7 +145,7 @@
 										</ul>
 										<div class="buttons-to-right">
 											<a th:href="@{/invoice/{id}(id=${y.id})}"
-											   class="button gray">View Invoice</a>
+											   class="button gray">Xem hoá đơn</a>
 										</div></li>
 								</th:block>
 							</ul>
@@ -165,8 +165,7 @@
 											<li th:text="'Date: ' + ${#dates.format(y.booking_Date, 'dd/MM/yyyy')}"></li>
 										</ul>
 										<div class="buttons-to-right">
-											<a th:href="@{/invoice/{id}(id=${y.id})}" class="button gray">View
-												Invoice</a>
+											<a th:href="@{/invoice/{id}(id=${y.id})}" class="button gray">Xem hoá đơn</a>
 										</div></li>
 								</th:block>
 							</ul>

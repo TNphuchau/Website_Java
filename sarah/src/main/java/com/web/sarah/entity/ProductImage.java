@@ -14,7 +14,7 @@ public class ProductImage {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "url_Image", columnDefinition = "nvarchar(1111)")
+	@Column(name = "url_Image", columnDefinition = "nvarchar(255)")
 	private String url_Image;
 	
 	@ManyToOne

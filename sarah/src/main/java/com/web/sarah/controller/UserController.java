@@ -115,8 +115,8 @@ public class UserController {
 
 		if (user == null) {
 			String encodedValue = Base64.getEncoder().encodeToString(password.getBytes());
-			String avatar = "https://haycafe.vn/wp-content/uploads/2022/02/Avatar-trang-den.png";
-			User newUser = new User(id, "default", "user", encodedValue, fullname, avatar, email, null, null, null);
+			String avatar = "/web/images/hoa.png";
+			User newUser = new User(id, "user", encodedValue, fullname, avatar, email, null, null, null);
 			userService.saveUser(newUser);
 			return "redirect:/signin";
 		} else {

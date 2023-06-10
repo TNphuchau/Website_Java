@@ -142,12 +142,12 @@
 										<div class="quantity">
 											<div class="pro-qty">
 												<button class="qty-btn" type="button" onclick="decreaseQty()">-</button>
-												<input name="count" id="countInput" type="text" value="1">
+												<input name="count" id="countInput" type="text" value="1" readonly>
 												<button class="qty-btn" type="button" onclick="increaseQty()">+</button>
 											</div>
 											<input name="product_id" style="display: none;" type="text" th:value="${product.id}">
 										</div>
-										<button class="hau_btn">Thêm</button>
+										<button class="hau_btn"  onclick="return checkLogin();">Thêm</button>
 									</div>
 								</form>
 							</div>
@@ -170,8 +170,8 @@
 			</div>
 		</div>
 		<div class="mo_ta">
-			<h1 th:text="${product.description}">
-			</h1>
+			<h5 th:text="${product.description}">
+			</h5>
 		</div>
 	</section>
 	<!-- Related Section Begin -->
@@ -200,7 +200,7 @@
 									<div class="product_price" th:text=" ${#numbers.formatDecimal(y.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
 								</div>
 							</div>
-							<div class="red_button add_to_cart_button"><a th:href="@{/addToCart/{id}(id=${y.id})}" class="btnAddToCart" data-id="@item.Id" onclick="return checkLogin();"> Thêm giỏ hàng</a></div>
+							<div class="red_button add_to_cart_button"><a th:href="@{/addToCart/{id}(id=${y.id})}" class="btnAddToCart" data-id="@item.Id"> Thêm giỏ hàng</a></div>
 						</div>
 					</a>
 				</th:block>
@@ -238,18 +238,6 @@
       }
     }
   </script>
-<script>
-    function checkLogin() {
-        var isLoggedIn = /* Kiểm tra trạng thái đăng nhập ở phía server */ false;
-
-        if (isLoggedIn) {
-            return true; // Cho phép thêm vào giỏ hàng
-        } else {
-            alert("Vui lòng đăng nhập để thêm vào giỏ hàng.");
-            return false; // Ngăn không cho thêm vào giỏ hàng
-        }
-    }
-</script>
 <script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/popper.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/bootstrap.min.js}"></script>

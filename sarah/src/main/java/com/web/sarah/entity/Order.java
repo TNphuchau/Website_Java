@@ -23,25 +23,25 @@ public class Order {
 	@Column(name = "booking_Date")
 	private Date booking_Date;
 	
-	@Column(name = "payment_Method", columnDefinition = "nvarchar(1111)")
+	@Column(name = "payment_Method", columnDefinition = "nvarchar(255)")
 	private String payment_Method;
 	
-	@Column(name = "status", columnDefinition = "nvarchar(1111)")
+	@Column(name = "status", columnDefinition = "nvarchar(255)")
 	private String status;
 
-	@Column(name = "fullname", columnDefinition = "nvarchar(1111)")
+	@Column(name = "fullname", columnDefinition = "nvarchar(255)")
 	private String fullname;
 
-	@Column(name = "address", columnDefinition = "nvarchar(1111)")
+	@Column(name = "address", columnDefinition = "nvarchar(255)")
 	private String address;
 	
-	@Column(name = "phone", columnDefinition = "nvarchar(1111)")
+	@Column(name = "phone", columnDefinition = "nvarchar(255)")
 	private String phone;
 	
-	@Column(name = "email", columnDefinition = "nvarchar(1111)")
+	@Column(name = "email", columnDefinition = "nvarchar(255)")
 	private String email;
 	
-	@Column(name = "note", columnDefinition = "nvarchar(1111)")
+	@Column(name = "note", columnDefinition = "nvarchar(255)")
 	private String note;
 
 	@OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
