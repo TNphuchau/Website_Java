@@ -22,6 +22,7 @@
 .product-viewed, .contact-account__create {
 	font-size: 0.9rem;
 	color: #74706f;
+	margin:20px;
 }
 
 .contact-account__log {
@@ -4868,7 +4869,7 @@ button.panel-cancel:active { transform: translateY(-2px); }
 	left: 0;
 	height: 100%;
 	width: 100%;
-	z-index: 990;
+	z-index: 1;
 	margin-bottom: 0px;
 }
 
