@@ -96,9 +96,9 @@ nav .profile .profile-link a:hover {
 									</div>
 								</form>
 							</li>
-							<li><a href="home">Trang chủ</a></li>
-							<li><a href="shop">Sản phẩm</a></li>
-							<li><a href="contact">liên hệ</a></li>
+							<li><a  th:href="@{/home}">Trang chủ</a></li>
+							<li><a th:href="@{/shop}">Sản phẩm</a></li>
+							<li><a th:href="@{contact}">liên hệ</a></li>
 						</ul>
 						<div class="contact-account">
 							<div th:if="${session.acc == null}" >

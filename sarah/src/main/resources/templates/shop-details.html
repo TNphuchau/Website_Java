@@ -78,12 +78,6 @@
 	<!-- Header -->
 	<div th:replace="web/header :: header-web"></div>
 	<div class="fs_menu_overlay"></div>
-	<script th:if="${session.AddToCartErr != null}">
-		swal("Lỗi", "Vui lòng đăng nhập trước khi thực hiện thao tác!", "error");
-	</script>
-	<p th:if="${session.AddToCartErr != null}"
-	   th:text="${#session.setAttribute('AddToCartErr', null)}"
-	   style="display: none;"></p>
 	<div class="container product_section_container">
 		<div class="row">
 			<div class="col product_section clearfix">
@@ -206,7 +200,7 @@
 									<div class="product_price" th:text=" ${#numbers.formatDecimal(y.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></div>
 								</div>
 							</div>
-							<div class="red_button add_to_cart_button"><a th:href="@{/addToCart/{id}(id=${y.id})}" class="btnAddToCart" data-id="@item.Id"> Thêm giỏ hàng</a></div>
+							<div class="red_button add_to_cart_button"><a th:href="@{/addToCart/{id}(id=${y.id})}" class="btnAddToCart" data-id="@item.Id" onclick="return checkLogin();"> Thêm giỏ hàng</a></div>
 						</div>
 					</a>
 				</th:block>
@@ -244,6 +238,18 @@
       }
     }
   </script>
+<script>
+    function checkLogin() {
+        var isLoggedIn = /* Kiểm tra trạng thái đăng nhập ở phía server */ false;
+
+        if (isLoggedIn) {
+            return true; // Cho phép thêm vào giỏ hàng
+        } else {
+            alert("Vui lòng đăng nhập để thêm vào giỏ hàng.");
+            return false; // Ngăn không cho thêm vào giỏ hàng
+        }
+    }
+</script>
 <script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/popper.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/bootstrap.min.js}"></script>
