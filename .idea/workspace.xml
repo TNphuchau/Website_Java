@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="293f2579-2230-4b40-8a4f-ce9e3157b0b5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/sarah/src/main/java/com/web/sarah/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/sarah/src/main/java/com/web/sarah/repository/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sarah/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/sarah/src/main/resources/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sarah/src/main/resources/templates/shop.html" beforeDir="false" afterPath="$PROJECT_DIR$/sarah/src/main/resources/templates/shop.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sarah/src/main/resources/templates/forgot.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sarah/src/main/java/com/web/sarah/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/sarah/src/main/java/com/web/sarah/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sarah/src/main/resources/templates/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/sarah/src/main/resources/templates/signin.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
