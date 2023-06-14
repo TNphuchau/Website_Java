@@ -61,15 +61,7 @@ public class UserController {
 
 	@GetMapping("/contact")
 	public String ContactView(Model model) {
-		User user = (User) session.getAttribute("acc");
-		if (user != null) {
-			List<Cart> listCart = cartService.GetAllCartByUser_id(user.getId());
-			int cartItemCount = 0;
-			for (Cart cart : listCart) {
-				cartItemCount += cart.getCount();
-			}
-			model.addAttribute("cartItemCount", cartItemCount);
-		}
+
 		return "contact";
 	}
 

@@ -41,17 +41,18 @@ public class CartController {
 			for (Cart cart : listCart) {
 				cartItemCount += cart.getCount();
 			}
+			model.addAttribute("cartItemCount", cartItemCount);
 			int Total = 0;
 			for (Cart y : listCart) {
 				Total = Total + y.getCount() * y.getProduct().getPrice();
 			}
 			if (listCart != null) {
-				model.addAttribute("cartItemCount", cartItemCount);
 				model.addAttribute("Total", Total);
 				model.addAttribute("listCart", listCart);
 				session.setAttribute("listCart", listCart);
 				session.setAttribute("Total", Total);
 			}
+
 			return "shopping-cart";
 		}
 	}

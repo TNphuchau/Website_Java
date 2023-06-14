@@ -43,7 +43,7 @@ public class ProductControler {
 	@Autowired
 	CookieService cookie;
 
-	@GetMapping(value = {"","/home"})
+	@GetMapping(value = {"/","/home"})
 	public String listStudents(Model model, HttpSession session) throws Exception {
 		Cookie user_name = cookie.read("user_name");
 		Cookie remember = cookie.read("remember");
@@ -64,9 +64,14 @@ public class ProductControler {
 		if(acc!=null) {
 			List<Cart> listCart = cartService.GetAllCartByUser_id(acc.getId());
 			session.setAttribute("countCart", listCart.size());
-		}
-		if (session.getAttribute("acc") == null)
+			int cartItemCount = 0;
+			for (Cart cart : listCart) {
+				cartItemCount += cart.getCount();
+			}
+			model.addAttribute("cartItemCount", cartItemCount);
+		}else{
 			session.setAttribute("countCart", "0");
+		}
 		model.addAttribute("error_momo", error_momo);
 		model.addAttribute("NoSignIn", NoSignIn);
 
@@ -74,15 +79,7 @@ public class ProductControler {
 		List<Product> Top12ProductNewArrivals = productService.findTop12ProductNewArrivals();
 		model.addAttribute("Top12ProductBestSellers", Top12ProductBestSellers);
 		model.addAttribute("Top12ProductNewArrivals", Top12ProductNewArrivals);
-		User user = (User) session.getAttribute("acc");
-		if (user != null) {
-			List<Cart> listCart = cartService.GetAllCartByUser_id(user.getId());
-			int cartItemCount = 0;
-			for (Cart cart : listCart) {
-				cartItemCount += cart.getCount();
-			}
-			model.addAttribute("cartItemCount", cartItemCount);
-		}
+
 		return "home";
 	}
 	@GetMapping("/shop")
@@ -101,18 +98,10 @@ public class ProductControler {
 		Page<Product> page = productRepository.findAll(pageable);
 		List<Category> listCategory = categoryService.findAll();
 		String search_input = (String) session.getAttribute("search_input");
+
 		model.addAttribute("listProduct", page);
 		model.addAttribute("listCategory", listCategory);
 		model.addAttribute("search_input", search_input);
-		User user = (User) session.getAttribute("acc");
-		if (user != null) {
-			List<Cart> listCart = cartService.GetAllCartByUser_id(user.getId());
-			int cartItemCount = 0;
-			for (Cart cart : listCart) {
-				cartItemCount += cart.getCount();
-			}
-			model.addAttribute("cartItemCount", cartItemCount);
-		}
 		return "shop";
 	}
 	@GetMapping("/shop/{id}")

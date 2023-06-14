@@ -224,19 +224,21 @@
 </script>
 <!--Tăng giảm số lượng-->
 <script>
-    function increaseQty() {
-      var input = document.getElementById('countInput');
-      var value = parseInt(input.value);
-      input.value = value + 1;
-    }
+   function increaseQty() {
+	  var input = document.getElementById('countInput');
+	  var value = parseInt(input.value);
+	  if (value < 10) {
+		input.value = value + 1;
+	  }
+	}
 
-    function decreaseQty() {
-      var input = document.getElementById('countInput');
-      var value = parseInt(input.value);
-      if (value > 1) {
-        input.value = value - 1;
-      }
-    }
+	function decreaseQty() {
+	  var input = document.getElementById('countInput');
+	  var value = parseInt(input.value);
+	  if (value > 1) {
+		input.value = value - 1;
+	  }
+	}
   </script>
 <script th:src="@{/web/js/jquery-3.2.1.min.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/popper.js}"></script>

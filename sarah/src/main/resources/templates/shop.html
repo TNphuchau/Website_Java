@@ -139,9 +139,9 @@ Copy code
 													<div class="card-body">
 														<div class="shop__sidebar__categories">
 															<ul class="nice-scroll">
-																<li><a th:href="${allProductsUrl}">Tất cả sản phẩm</a></li>
 																<th:block th:each="y : ${listCategory}">
-																	<li><a th:href="@{/category/{id}(id=${y.id})}" th:text="${y.category_Name}"></a></li>
+																	<li><a th:href="@{/category/{id}(id=${y.id})}"
+																		   th:text="${y.category_Name}"></a></li>
 																</th:block>
 															</ul>
 														</div>

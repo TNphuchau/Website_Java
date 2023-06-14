@@ -473,77 +473,77 @@ public String editAccountView(@PathVariable("id") String id, Model model) {
 		}
 	}
 
-	@GetMapping("dashboard-myprofile")
-	public String DashboardMyProfile(Model model) {
-		User admin = (User) session.getAttribute("admin");
-		if (admin == null) {
-			return "redirect:/loginAdmin";
-		} else {
-			String error_change_pass = (String) session.getAttribute("error_change_pass");
-			String ChangePassSuccess = (String) session.getAttribute("ChangePassSuccess");
-			String messageChangeProfile = (String) session.getAttribute("messageChangeProfile");
-			model.addAttribute("messageChangeProfile", messageChangeProfile);
-			model.addAttribute("error_change_pass", error_change_pass);
-			model.addAttribute("ChangePassSuccess", ChangePassSuccess);
-			session.setAttribute("error_change_pass", null);
-			session.setAttribute("ChangePassSuccess", null);
-			session.setAttribute("messageChangeProfile", null);
-			model.addAttribute("admin", admin);
-			return "dashboard-my-profile";
-		}
-	}
-
-	@PostMapping("/dashboard-myprofile/changepassword")
-	public String DashboardChangePassword(Model model, @ModelAttribute("current_password") String current_password,
-										  @ModelAttribute("new_password") String new_password,
-										  @ModelAttribute("confirm_password") String confirm_password, HttpServletRequest request) {
-		String referer = request.getHeader("Referer");
-		User admin = (User) session.getAttribute("admin");
-		if (admin == null) {
-			return "redirect:/loginAdmin";
-		} else {
-			String decodedValue = new String(Base64.getDecoder().decode(admin.getPassword()));
-			if (!decodedValue.equals(current_password)) {
-				session.setAttribute("error_change_pass", "Current Password not correct!");
-				return "redirect:/dashboard-myprofile";
-			} else {
-
-				if (!new_password.equals(confirm_password)) {
-					session.setAttribute("error_change_pass", "Confirm New Password not valid!");
-					return "redirect:/dashboard-myprofile";
-				} else {
-					String encodedValue = Base64.getEncoder().encodeToString(new_password.getBytes());
-					admin.setPassword(encodedValue);
-					userService.saveUser(admin);
-					session.setAttribute("admin", admin);
-				}
-			}
-			session.setAttribute("ChangePassSuccess", "ChangePassSuccess");
-			return "redirect:" + referer;
-		}
-	}
-
-	@PostMapping("/dashboard-myprofile/changeProfile")
-	public String ChangeProfile(Model model, @ModelAttribute("avatar") MultipartFile avatar,
-								@ModelAttribute("fullname") String fullname, @ModelAttribute("phone") String phone,
-								@ModelAttribute("email") String email) throws IOException {
-		User admin = (User) session.getAttribute("admin");
-		if (admin == null) {
-			return "redirect:/loginAdmin";
-		} else {
-			if (!avatar.isEmpty()) {
-				String url = cloudinaryService.uploadFile(avatar);
-				admin.setAvatar(url);
-			}
-			admin.setUser_Name(fullname);
-			admin.setEmail(email);
-			admin.setPhone_Number(phone);
-			userService.saveUser(admin);
-			session.setAttribute("admin", admin);
-			session.setAttribute("messageChangeProfile", "Change Success.");
-			return "redirect:/dashboard-myprofile";
-		}
-	}
+//	@GetMapping("dashboard-myprofile")
+//	public String DashboardMyProfile(Model model) {
+//		User admin = (User) session.getAttribute("admin");
+//		if (admin == null) {
+//			return "redirect:/loginAdmin";
+//		} else {
+//			String error_change_pass = (String) session.getAttribute("error_change_pass");
+//			String ChangePassSuccess = (String) session.getAttribute("ChangePassSuccess");
+//			String messageChangeProfile = (String) session.getAttribute("messageChangeProfile");
+//			model.addAttribute("messageChangeProfile", messageChangeProfile);
+//			model.addAttribute("error_change_pass", error_change_pass);
+//			model.addAttribute("ChangePassSuccess", ChangePassSuccess);
+//			session.setAttribute("error_change_pass", null);
+//			session.setAttribute("ChangePassSuccess", null);
+//			session.setAttribute("messageChangeProfile", null);
+//			model.addAttribute("admin", admin);
+//			return "dashboard-my-profile";
+//		}
+//	}
+//
+//	@PostMapping("/dashboard-myprofile/changepassword")
+//	public String DashboardChangePassword(Model model, @ModelAttribute("current_password") String current_password,
+//										  @ModelAttribute("new_password") String new_password,
+//										  @ModelAttribute("confirm_password") String confirm_password, HttpServletRequest request) {
+//		String referer = request.getHeader("Referer");
+//		User admin = (User) session.getAttribute("admin");
+//		if (admin == null) {
+//			return "redirect:/loginAdmin";
+//		} else {
+//			String decodedValue = new String(Base64.getDecoder().decode(admin.getPassword()));
+//			if (!decodedValue.equals(current_password)) {
+//				session.setAttribute("error_change_pass", "Current Password not correct!");
+//				return "redirect:/dashboard-myprofile";
+//			} else {
+//
+//				if (!new_password.equals(confirm_password)) {
+//					session.setAttribute("error_change_pass", "Confirm New Password not valid!");
+//					return "redirect:/dashboard-myprofile";
+//				} else {
+//					String encodedValue = Base64.getEncoder().encodeToString(new_password.getBytes());
+//					admin.setPassword(encodedValue);
+//					userService.saveUser(admin);
+//					session.setAttribute("admin", admin);
+//				}
+//			}
+//			session.setAttribute("ChangePassSuccess", "ChangePassSuccess");
+//			return "redirect:" + referer;
+//		}
+//	}
+//
+//	@PostMapping("/dashboard-myprofile/changeProfile")
+//	public String ChangeProfile(Model model, @ModelAttribute("avatar") MultipartFile avatar,
+//								@ModelAttribute("fullname") String fullname, @ModelAttribute("phone") String phone,
+//								@ModelAttribute("email") String email) throws IOException {
+//		User admin = (User) session.getAttribute("admin");
+//		if (admin == null) {
+//			return "redirect:/loginAdmin";
+//		} else {
+//			if (!avatar.isEmpty()) {
+//				String url = cloudinaryService.uploadFile(avatar);
+//				admin.setAvatar(url);
+//			}
+//			admin.setUser_Name(fullname);
+//			admin.setEmail(email);
+//			admin.setPhone_Number(phone);
+//			userService.saveUser(admin);
+//			session.setAttribute("admin", admin);
+//			session.setAttribute("messageChangeProfile", "Change Success.");
+//			return "redirect:/dashboard-myprofile";
+//		}
+//	}
 
 	@GetMapping("/orderAdmin")
 	public String DashboardOrderView(Model model) {
