@@ -76,9 +76,13 @@
     </div>
 
     <br><br><br>
-    <script th:if="${NoSignIn != null}">
-		swal("Lỗi", "Vui lòng đăng nhập trước khi thực hiện thao tác!", "error");
-	</script>
+    <div th:if="${NoSignIn != null}">
+        <script th:inline="javascript">
+        <![CDATA[
+            swal("Lỗi", "Vui lòng đăng nhập trước khi thực hiện thao tác!", "error");
+        ]]>
+    </script>
+    </div>
     <script th:if="${error_momo != null}">
 		swal("Thanh toán không thành công!", "", "error");
 	</script>

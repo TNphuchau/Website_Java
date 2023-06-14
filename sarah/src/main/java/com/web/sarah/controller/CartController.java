@@ -37,11 +37,16 @@ public class CartController {
 			return "redirect:/home";
 		} else {
 			List<Cart> listCart = cartService.GetAllCartByUser_id(user.getId());
+			int cartItemCount = 0;
+			for (Cart cart : listCart) {
+				cartItemCount += cart.getCount();
+			}
 			int Total = 0;
 			for (Cart y : listCart) {
 				Total = Total + y.getCount() * y.getProduct().getPrice();
 			}
 			if (listCart != null) {
+				model.addAttribute("cartItemCount", cartItemCount);
 				model.addAttribute("Total", Total);
 				model.addAttribute("listCart", listCart);
 				session.setAttribute("listCart", listCart);

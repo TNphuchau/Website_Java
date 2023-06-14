@@ -74,6 +74,15 @@ public class ProductControler {
 		List<Product> Top12ProductNewArrivals = productService.findTop12ProductNewArrivals();
 		model.addAttribute("Top12ProductBestSellers", Top12ProductBestSellers);
 		model.addAttribute("Top12ProductNewArrivals", Top12ProductNewArrivals);
+		User user = (User) session.getAttribute("acc");
+		if (user != null) {
+			List<Cart> listCart = cartService.GetAllCartByUser_id(user.getId());
+			int cartItemCount = 0;
+			for (Cart cart : listCart) {
+				cartItemCount += cart.getCount();
+			}
+			model.addAttribute("cartItemCount", cartItemCount);
+		}
 		return "home";
 	}
 	@GetMapping("/shop")
@@ -92,10 +101,18 @@ public class ProductControler {
 		Page<Product> page = productRepository.findAll(pageable);
 		List<Category> listCategory = categoryService.findAll();
 		String search_input = (String) session.getAttribute("search_input");
-
 		model.addAttribute("listProduct", page);
 		model.addAttribute("listCategory", listCategory);
 		model.addAttribute("search_input", search_input);
+		User user = (User) session.getAttribute("acc");
+		if (user != null) {
+			List<Cart> listCart = cartService.GetAllCartByUser_id(user.getId());
+			int cartItemCount = 0;
+			for (Cart cart : listCart) {
+				cartItemCount += cart.getCount();
+			}
+			model.addAttribute("cartItemCount", cartItemCount);
+		}
 		return "shop";
 	}
 	@GetMapping("/shop/{id}")

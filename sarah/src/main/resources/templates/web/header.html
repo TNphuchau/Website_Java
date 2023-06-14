@@ -136,7 +136,9 @@ nav .profile .profile-link a:hover {
 						<ul class="navbar_user">
 							<li class="checkout">
 								<a th:href="@{/cart}">
-									<i class="fa fa-shopping-cart" aria-hidden="true"><span id="cart-item-count">0</span></i>
+									<i class="fa fa-shopping-cart" aria-hidden="true">
+										<span id="cart-item-count" th:text="${cartItemCount}">0</span>
+									</i>
 								</a>
 							</li>
 						</ul>
@@ -149,37 +151,5 @@ nav .profile .profile-link a:hover {
 		</div>
 	</div>
 </header>
-<script th:fragment="js-web" >
-  document.addEventListener('DOMContentLoaded', function() {
-    // Lấy số lượng sản phẩm từ các ô input trong form
-    function getCartItemCount() {
-      var countInputs = document.querySelectorAll('input[type="number"][name^="count"]');
-      var itemCount = 0;
-
-      countInputs.forEach(function(input) {
-        itemCount += parseInt(input.value);
-      });
-
-      return itemCount;
-    }
-
-    // Cập nhật số lượng sản phẩm trong thẻ <span>
-    function updateCartItemCount() {
-      var cartItemCountSpan = document.getElementById('cart-item-count');
-      if (cartItemCountSpan) {
-        var itemCount = getCartItemCount();
-        cartItemCountSpan.textContent = itemCount;
-      }
-    }
-
-    // Gọi hàm updateCartItemCount() khi trang tải hoàn thành và khi số lượng sản phẩm thay đổi
-    updateCartItemCount();
-
-    var countInputs = document.querySelectorAll('input[type="number"][name^="count"]');
-    countInputs.forEach(function(input) {
-      input.addEventListener('input', updateCartItemCount);
-    });
-  });
-</script>
 </body>
 </html>
