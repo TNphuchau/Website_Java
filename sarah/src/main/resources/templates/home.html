@@ -263,4 +263,14 @@
 					}
 				})
 	</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var successMessage = /*[[${AddToCartSuccess}]]*/ null;
+    if (successMessage) {
+        alert(successMessage);
+    }
+    /*]]>*/
+</script>
+
 </html>

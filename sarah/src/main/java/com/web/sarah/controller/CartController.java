@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -42,6 +44,7 @@ public class CartController {
 				cartItemCount += cart.getCount();
 			}
 			model.addAttribute("cartItemCount", cartItemCount);
+
 			int Total = 0;
 			for (Cart y : listCart) {
 				Total = Total + y.getCount() * y.getProduct().getPrice();
@@ -92,12 +95,12 @@ public class CartController {
 	}
 
 	@GetMapping("/addToCart/{id}")
-	public String AddToCart(@PathVariable int id, Model model, HttpServletRequest request) throws Exception {
+	public String AddToCart(@PathVariable int id, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
 		String referer = request.getHeader("Referer");
 		User user = (User) session.getAttribute("acc");
 		if (user == null) {
 			session.setAttribute("AddToCartErr", "Vui lòng đăng nhập trước khi thực hiện thao tác");
-			return "redirect:/signin"; // Thay "/login" bằng đường dẫn tới trang đăng nhập của bạn
+			return "redirect:/signin?error=true";
 		} else {
 			List<Cart> listCart = cartService.GetAllCartByUser_id(user.getId());
 			Product product = productService.getProductById(id);
@@ -123,19 +126,20 @@ public class CartController {
 			}
 			listCart = cartService.GetAllCartByUser_id(user.getId());
 			session.setAttribute("countCart", listCart.size());
+			redirectAttributes.addFlashAttribute("AddToCartSuccess", "Thêm giỏ hàng thành công");
 			return "redirect:" + referer;
 		}
 	}
 
 	@PostMapping("/addToCart")
 	public String AddToCartPost(@ModelAttribute("product_id") int product_id, @ModelAttribute("count") String a,
-								Model model, HttpServletRequest request, HttpSession session) throws Exception {
+								Model model, HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes) throws Exception {
 		int count = Integer.parseInt(a);
 		String referer = request.getHeader("Referer");
 		User user = (User) session.getAttribute("acc");
 		if (user == null) {
 			session.setAttribute("AddToCartErr", "Vui lòng đăng nhập trước khi thực hiện thao tác");
-			return "redirect:/signin"; // Thay "/login" bằng đường dẫn tới trang đăng nhập của bạn
+			return "redirect:/signin?error=true";
 		} else {
 			List<Cart> listCart = cartService.GetAllCartByUser_id(user.getId());
 			Product product = productService.getProductById(product_id);
@@ -156,6 +160,7 @@ public class CartController {
 			}
 			listCart = cartService.GetAllCartByUser_id(user.getId());
 			session.setAttribute("countCart", listCart.size());
+			redirectAttributes.addFlashAttribute("AddToCartSuccess", "Thêm giỏ hàng thành công");
 			return "redirect:" + referer;
 		}
 	}

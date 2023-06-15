@@ -320,6 +320,15 @@ Copy code
     }
   }
 </script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var successMessage = /*[[${AddToCartSuccess}]]*/ null;
+    if (successMessage) {
+        alert(successMessage);
+    }
+    /*]]>*/
+</script>
 <script th:src="@{/web/styles/bootstrap4/popper.js}"></script>
 <script th:src="@{/web/styles/bootstrap4/bootstrap.min.js}"></script>
 <script th:src="@{/web/plugins/Isotope/isotope.pkgd.min.js}"></script>

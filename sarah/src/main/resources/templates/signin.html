@@ -167,5 +167,15 @@ function validatePassword() {
   }
 }
 </script>
+<!--Thông báo phải đăng nhập để thêm giỏ hàng-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var error = /*[[${param.error}]]*/ false;
+    if (error) {
+        alert("Vui lòng đăng nhập trước khi thực hiện thao tác");
+    }
+    /*]]>*/
+</script>
+
 </body>
 </html>

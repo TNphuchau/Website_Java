@@ -88,9 +88,19 @@ public class ProductControler {
 		int TotalPro = lp.size();
 		model.addAttribute("TotalPro", TotalPro);
 
+		User acc = (User) session.getAttribute("acc");
+		if(acc!=null) {
+			List<Cart> listCart = cartService.GetAllCartByUser_id(acc.getId());
+			int cartItemCount = 0;
+			for (Cart cart : listCart) {
+				cartItemCount += cart.getCount();
+			}
+			model.addAttribute("cartItemCount", cartItemCount);
+		}
+
 		Pageable pageable;
 		if (sortType.equals("asc")) {
-			pageable = PageRequest.of(0, 12, Sort.by("price").ascending());
+			pageable = PageRequest.of(0, 12, Sort.by("price").ascending());/*Tăng dần*/
 		} else {
 			pageable = PageRequest.of(0, 12, Sort.by("price").descending());
 		}
@@ -109,8 +119,11 @@ public class ProductControler {
 		List<Product> lp = productService.getAllProduct();
 		int TotalPro = lp.size();
 		model.addAttribute("TotalPro",TotalPro);
+
 		Pageable pageable = PageRequest.of(id, 12);
+
 		Page<Product> page = productRepository.findAll(pageable);
+
 		model.addAttribute("listProduct", page);
 		List<Category> listCategory = categoryService.findAll();
 		String search_input = (String) session.getAttribute("search_input");
@@ -122,6 +135,7 @@ public class ProductControler {
 			model.addAttribute("listCategory", listCategory);
 		else
 			model.addAttribute("listCategory", null);
+
 		model.addAttribute("search_input", search_input);
 		return "shop";
 	}
@@ -129,9 +143,11 @@ public class ProductControler {
 	@GetMapping("/productDetail/{id}")
 	public String ProductDetailId(@PathVariable int id, Model model) {
 		Product product = productService.getProductById(id);
+
 		if(product !=null){
 		List<Product> relatedProduct = productService.findTop4ProductByCategory_id(product.getCategory().getId());
 		model.addAttribute("relatedProduct", relatedProduct);
+
 		model.addAttribute(product);
 		return "shop-details";
 		}

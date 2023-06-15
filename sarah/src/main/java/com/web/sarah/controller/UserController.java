@@ -61,7 +61,15 @@ public class UserController {
 
 	@GetMapping("/contact")
 	public String ContactView(Model model) {
-
+		User acc = (User) session.getAttribute("acc");
+		if(acc!=null) {
+			List<Cart> listCart = cartService.GetAllCartByUser_id(acc.getId());
+			int cartItemCount = 0;
+			for (Cart cart : listCart) {
+				cartItemCount += cart.getCount();
+			}
+			model.addAttribute("cartItemCount", cartItemCount);
+		}
 		return "contact";
 	}
 
@@ -232,8 +240,8 @@ public class UserController {
 			Mail mail = new Mail();
 			mail.setMailFrom("tn0909ph@gmail.com");
 			mail.setMailTo(userForgot.getEmail());
-			mail.setMailSubject("For got Password");
-			mail.setMailContent("Your code is: " + code);
+			mail.setMailSubject("Quên mật khẩu");
+			mail.setMailContent("Mã OTP: " + code);
 			mailService.sendEmail(mail);
 			System.out.println(code);
 			session.setAttribute("code", code);
@@ -287,16 +295,5 @@ public class UserController {
 		}
 
 	}
-
-
-//	@GetMapping("/signin-google")
-//	public String SignInGoogle(@ModelAttribute("code") String code, Model model) throws Exception {
-//		System.out.println("=========" + code);
-//		String accessToken = getToken(code);
-//		System.out.println(accessToken);
-//		AccountGoogle accountGoogle = getUserInfo(accessToken);
-//		System.out.println(accountGoogle);
-//		return "redirect:/home";
-//	}
 }
 
