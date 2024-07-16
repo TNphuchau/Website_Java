@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="bestSeller-web">
+  <div class="col text-center">
+    <div class="section_title new_arrivals_title">
+      <img src="https://app2.jeoway.net/61/hotdeal/images/icon_flashdeal_2.png" alt="">
+    </div>
+  </div>
+  <div class="carousel-wrap">
+    <div class="owl-carousel">
+      <th:block th:each="y : ${Top12ProductBestSellers}">
+        <a th:href="@{/addToCart/{id}(id=${y.id})}" class="product-sale__item">
+          <div class="product-sale__item-img" style="padding-top: 4px">
+            <img alt="" th:data-setbg="${y.productImage[0].url_Image}" style="width: 100%; height: 240px">
+          </div>
+          <p class="product-sale__item-name" th:text="${y.product_Name}"></p>
+          <div class="product-sale__item-price">
+            <span class="product-sale__item-price-curr" th:text=" ${#numbers.formatDecimal(y.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+            <!--          <span class="	product-sale__item-price-old">${flashdeal1.getFormatPriceDefault() }</span>-->
+          </div>
+        </a>
+      </th:block>
+    </div>
+  </div>
+</div>
+</body>
+</html>
