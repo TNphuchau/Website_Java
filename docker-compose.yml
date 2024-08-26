@@ -1,0 +1,36 @@
+#docker-compose.yml
+version: '3.8'
+
+services:
+  mysql:
+    image: myhgan1/mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: sarah
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./sarah.sql:/docker-entrypoint-initdb.d/sarah.sql
+
+  springboot-app:
+    image: myhgan1/sarah-springboot-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sarah-app
+    ports:
+      - "6789:6789"
+    environment:
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/sarah
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-data:
+

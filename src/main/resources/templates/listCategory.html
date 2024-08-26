@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Page</title>
+    <link rel="stylesheet" th:href="@{/admin/style.css}">
+    <link rel="stylesheet" th:href="@{/admin/product.css}">
+    <link rel="stylesheet" th:href="@{/admin/main-color.css}">
+    <link th:href="@{/fontawesome/css/all.css}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+
+</style>
+</head>
+<body>
+
+<div class="container-scroller">
+    <div th:replace="admin/menu::menu-section"></div>
+
+    <section id="content">
+        <div th:replace="admin/header::header-nav"></div>
+        <main>
+            <section class="content">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Danh sách danh mục</h3>
+
+                        <div class="card-tools">
+                            <a href="addCategory" class="btn btn-outline-primary">Thêm mới</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên danh mục</th>
+                                <th>action</th>
+                            </tr>
+                            </thead>
+                            <tbody th:each="category, iterStat : ${listCategories}">
+                            <tr>
+                                <td th:text="${iterStat.index + 1}"></td>
+                                <td th:text="${category.category_Name}"></td>
+                                <td>
+<!--                                    <form th:action="@{/editCategory/{categoryId}(categoryId=${category.id})}" method="get" style="display: inline;">-->
+<!--                                        <button type="submit" class="btn btn-sm btn-outline-primary">Sửa</button>-->
+<!--                                    </form>-->
+                                    <form th:action="@{/deleteCategory/{categoryId}(categoryId=${category.id})}" method="post" style="display: inline;">
+                                        <input type="hidden" name="_method" value="DELETE" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger btnDelete">Xoá</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </section>
+</div>
+<script th:src="@{/admin/script.js}"></script>
+<script th:src="@{/fontawesome/js/all.min.js}"></script>
+</body>
+</html>
+
+
