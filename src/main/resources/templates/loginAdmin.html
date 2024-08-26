@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet"
+        th:href="@{/login/index.css}" />
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css"
+        rel="stylesheet" />
+</head>
+<body>
+<div class="container" id="container">
+  <div class="form-container login-container">
+    <form action="loginAdmin" method="post" class="form" id="form-login">
+      <h1>Login</h1>
+      <input type="text" name="login-name" placeholder="Tên đăng nhập"> <input
+            type="password"  name="pass" placeholder="Mật khẩu">
+      <div class="content">
+        <div class="checkbox">
+          <input type="checkbox" name="checkbox" id="checkbox"> <label>Remember
+          me</label>
+        </div>
+        <p th:if="${err_sign_admin != null}" th:text="${err_sign_admin}" style="color: red; margin-bottom: 10px;"></p>
+        <div class="pass-link">
+          <a href="#">Forgot password?</a>
+        </div>
+      </div>
+      <button type="submit">Login</button>
+      <span>or use your account</span>
+      <div class="social-container">
+        <a href="#" class="social"><i class="lni lni-facebook-fill"></i></a>
+        <a href="#" class="social"><i class="lni lni-google"></i></a> <a
+              href="#" class="social"><i class="lni lni-instagram-original"></i></a>
+      </div>
+    </form>
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel over-left">
+        <h1 class="title">SARAH</h1>
+        <p>Welcome to store</p>
+        <button class="gots" id="login">
+          Login <i class="lni lni-arrow-left login"></i>
+        </button>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1 class="title">Sarah</h1>
+        <p>Hello Friends</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script
+        th:src="@{/login/index.js}"></script>
+<script>
+		Validator({
+			form : '#form-signup',
+			errorSelector : '.form-message',
+			rules : [
+					Validator.isRequired('#surname'),
+					Validator.isRequired('#name'),
+					Validator.isRequired('#email'),
+					Validator.isEmail('#email'),
+					Validator.minLength('#password', 6),
+					Validator.isRequired('#repassword'),
+					Validator
+							.isConfirmed(
+									'#repassword',
+									function() {
+										return document
+												.querySelector('#form-signup #password').value;
+									}, 'Mật khẩu nhập lại phải chính xác') ],
+			onSubmit : function(data) {
+				console.log(data);
+			}
+		});
+	</script>
+</body>
+</html>
