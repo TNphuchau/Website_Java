@@ -16,3 +16,12 @@ Thanh toán momo: https://github.com/momo-wallet/java.git
 Gửi mail: https://github.com/AdityaKshettri/Sending-Emails-using-Spring-Boot-Mail.git
 
 Thanh toán VNpay: https://sandbox.vnpayment.vn/apis/downloads/#
+
+# Câu lệnh cần thiết để chạy với DOCKER-COMPOSE
+- docker login
+- docker-compose up --build
+# Sử dụng JDK phiên bản 20 để tránh gặp lỗi nha
+
+# Hình ảnh Demo
+
+![img.png](img.png)
