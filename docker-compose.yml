@@ -3,7 +3,7 @@ version: '3.8'
 
 services:
   mysql:
-    image: tnphau/mysql:latest
+    image: myhgan1/mysql:latest
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: "root"
@@ -15,7 +15,7 @@ services:
       - ./sarah.sql:/docker-entrypoint-initdb.d/sarah.sql
 
   springboot-app:
-    image: tnphau/sarah-springboot-app:latest
+    image: myhgan1/sarah-springboot-app:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -33,6 +33,4 @@ services:
 
 volumes:
   mysql-data:
-
-
 

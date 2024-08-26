@@ -140,6 +140,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>sarah</finalName>
 	</build>
-
 </project>

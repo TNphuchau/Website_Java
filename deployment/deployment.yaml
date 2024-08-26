@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sarah-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sarah
+  template:
+    metadata:
+      labels:
+        app: sarah
+    spec:
+      containers:
+        - name: sarah
+          image: myhgan1/sarah-minikube:latest
+          ports:
+            - containerPort: 6789
+          env:
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: "update"
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://host.docker.internal:3306/sarah
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: ""
+            - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+              value: com.mysql.cj.jdbc.Driver
